@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang=ko>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="json - JSON encoder and decoder 출처 : https:&#x2F;&#x2F;docs.python.org&#x2F;3&#x2F;library&#x2F;json.html 코드 : https:&#x2F;&#x2F;github.com&#x2F;python&#x2F;cpython&#x2F;blob&#x2F;3.7&#x2F;Lib&#x2F;json&#x2F;encoder.py  파이썬 코드 읽어보기 첫 번째 시리즈는 json입니다.  import json 개발 중 흔">
+<meta property="og:type" content="article">
+<meta property="og:title" content="파이썬 코드 읽어보기 - json&#x2F;encoder.py">
+<meta property="og:url" content="https://urangurang.github.io/python/code-reading-json-encoder/index.html">
+<meta property="og:site_name" content="urangurang">
+<meta property="og:description" content="json - JSON encoder and decoder 출처 : https:&#x2F;&#x2F;docs.python.org&#x2F;3&#x2F;library&#x2F;json.html 코드 : https:&#x2F;&#x2F;github.com&#x2F;python&#x2F;cpython&#x2F;blob&#x2F;3.7&#x2F;Lib&#x2F;json&#x2F;encoder.py  파이썬 코드 읽어보기 첫 번째 시리즈는 json입니다.  import json 개발 중 흔">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://urangurang.github.io/images/json-encoder/json_encoder_structure_01.png">
+<meta property="article:published_time" content="2019-08-27T05:04:44.000Z">
+<meta property="article:modified_time" content="2020-02-10T14:45:58.000Z">
+<meta property="article:author" content="urangurang">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="JSON">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://urangurang.github.io/images/json-encoder/json_encoder_structure_01.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>파이썬 코드 읽어보기 - json/encoder.py</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/python/code-reading-json-decoder-scanner/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/python/code-reading-json-init/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://urangurang.github.io/python/code-reading-json-encoder/" target="_blank" rel="noopener"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://urangurang.github.io/python/code-reading-json-encoder/&text=파이썬 코드 읽어보기 - json/encoder.py" target="_blank" rel="noopener"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://urangurang.github.io/python/code-reading-json-encoder/&title=파이썬 코드 읽어보기 - json/encoder.py" target="_blank" rel="noopener"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://urangurang.github.io/python/code-reading-json-encoder/&is_video=false&description=파이썬 코드 읽어보기 - json/encoder.py" target="_blank" rel="noopener"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=파이썬 코드 읽어보기 - json/encoder.py&body=Check out this article: https://urangurang.github.io/python/code-reading-json-encoder/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://urangurang.github.io/python/code-reading-json-encoder/&title=파이썬 코드 읽어보기 - json/encoder.py" target="_blank" rel="noopener"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://urangurang.github.io/python/code-reading-json-encoder/&title=파이썬 코드 읽어보기 - json/encoder.py" target="_blank" rel="noopener"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://urangurang.github.io/python/code-reading-json-encoder/&title=파이썬 코드 읽어보기 - json/encoder.py" target="_blank" rel="noopener"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://urangurang.github.io/python/code-reading-json-encoder/&title=파이썬 코드 읽어보기 - json/encoder.py" target="_blank" rel="noopener"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://urangurang.github.io/python/code-reading-json-encoder/&name=파이썬 코드 읽어보기 - json/encoder.py&description=" target="_blank" rel="noopener"><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#json-JSON-encoder-and-decoder"><span class="toc-number">1.</span> <span class="toc-text">json - JSON encoder and decoder</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        파이썬 코드 읽어보기 - json/encoder.py
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">urangurang</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2019-08-27T05:04:44.000Z" itemprop="datePublished">2019-08-27</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-caret-down"></i>
+        <a class="category-link" href="/categories/python/">python</a>
+    </div>
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/JSON/" rel="tag">JSON</a>, <a class="tag-link" href="/tags/python/" rel="tag">python</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="json-JSON-encoder-and-decoder"><a href="#json-JSON-encoder-and-decoder" class="headerlink" title="json - JSON encoder and decoder"></a>json - JSON encoder and decoder</h1><ul>
+<li>출처 : <a href="https://docs.python.org/3/library/json.html" target="_blank" rel="noopener">https://docs.python.org/3/library/json.html</a></li>
+<li>코드 : <a href="https://github.com/python/cpython/blob/3.7/Lib/json/encoder.py" target="_blank" rel="noopener">https://github.com/python/cpython/blob/3.7/Lib/json/encoder.py</a></li>
+</ul>
+<p><strong>파이썬 코드 읽어보기</strong> 첫 번째 시리즈는 <code>json</code>입니다. </p>
+<p><code>import json</code></p>
+<p>개발 중 흔하게 만나던 <code>json</code>의 내부는 어떻게 되어 있는지 같이 확인해봅시다. </p>
+<p>저는 <a href="https://github.com/python/cpython/blob/3.7/Lib/json/__init__.py" target="_blank" rel="noopener">cpython repository</a>에서 코드를 확인해봤습니다. 파이썬 코드는 ./Lib/ 디렉토리 아래에서 확인할 수 있습니다.</p>
+<p><code>cpython/Lib/json/</code> 디렉토리안의 내용입니다.</p>
+<ul>
+<li><code>__init__.py</code></li>
+<li><code>decoder.py</code></li>
+<li><code>encoder.py</code></li>
+<li><code>scanner.py</code></li>
+<li><code>tool.py</code></li>
+</ul>
+<p>본 글에서는 <code>encoder.py</code>를 확인해보겠습니다. 총 442줄로 구성된 파일로 생각보다 그렇게 길진 않습니다.</p>
+<p>Pycharm을 통해 Structure를 보면 </p>
+<p><img src="/images/json-encoder/json_encoder_structure_01.png" alt="encoder-structure"></p>
+<p><code>V</code>는 변수, <code>f</code> 메소드, <code>C</code> 클래스를 나타냅니다.</p>
+<p><code>encoder.py</code> 의 변수<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">ESCAPE &#x3D; re.compile(r&#39;[\x00-\x1f\\&quot;\b\f\n\r\t]&#39;)</span><br><span class="line">ESCAPE_ASCII &#x3D; re.compile(r&#39;([\\&quot;]|[^\ -~])&#39;)</span><br><span class="line">HAS_UTF8 &#x3D; re.compile(b&#39;[\x80-\xff]&#39;)</span><br><span class="line">ESCAPE_DCT &#x3D; &#123;</span><br><span class="line">    &#39;\\&#39;: &#39;\\\\&#39;,</span><br><span class="line">    &#39;&quot;&#39;: &#39;\\&quot;&#39;,</span><br><span class="line">    &#39;\b&#39;: &#39;\\b&#39;,</span><br><span class="line">    &#39;\f&#39;: &#39;\\f&#39;,</span><br><span class="line">    &#39;\n&#39;: &#39;\\n&#39;,</span><br><span class="line">    &#39;\r&#39;: &#39;\\r&#39;,</span><br><span class="line">    &#39;\t&#39;: &#39;\\t&#39;,</span><br><span class="line">&#125;</span><br><span class="line">for i in range(0x20):</span><br><span class="line">    ESCAPE_DCT.setdefault(chr(i), &#39;\\u&#123;0:04x&#125;&#39;.format(i))</span><br><span class="line">    #ESCAPE_DCT.setdefault(chr(i), &#39;\\u%04x&#39; % (i,))</span><br><span class="line"></span><br><span class="line">INFINITY &#x3D; float(&#39;inf&#39;)</span><br></pre></td></tr></table></figure></p>
+<p><code>ESCAPE</code>, <code>ESCAPE_ASCII</code>, <code>HAS_UTF8</code> 세 변수는 <code>re.compile()</code> 메소드의 반환 값으로 <code>regular expression object</code> 입니다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; type(ESCAPE)</span><br><span class="line">&lt;class &#39;_sre.SRE_Pattern&#39;&gt;</span><br></pre></td></tr></table></figure></p>
+<p><code>ESCAPE_DCT</code>는 딕셔너리 타입의 변수로 0~31까지의 정수를 기반으로 만들어졌으며, 실제로 아래 표의 데이터를 가지고 있습니다. </p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>chr(index)</code></td>
+<td><code>\\u{0:04x}&#39;.format(i)</code></td>
+</tr>
+<tr>
+<td>이하 실제 값</td>
+</tr>
+<tr>
+<td>‘\x00’</td>
+<td>‘\u0000’</td>
+</tr>
+<tr>
+<td>‘\x01’</td>
+<td>‘\u0001’</td>
+</tr>
+<tr>
+<td>‘\x02’</td>
+<td>‘\u0002’</td>
+</tr>
+<tr>
+<td>‘\x03’</td>
+<td>‘\u0003’</td>
+</tr>
+<tr>
+<td>‘\x04’</td>
+<td>‘\u0004’</td>
+</tr>
+<tr>
+<td>‘\x05’</td>
+<td>‘\u0005’</td>
+</tr>
+<tr>
+<td>‘\x06’</td>
+<td>‘\u0006’</td>
+</tr>
+<tr>
+<td>‘\x07’</td>
+<td>‘\u0007’</td>
+</tr>
+<tr>
+<td>‘\x08’</td>
+<td>‘\u0008’</td>
+</tr>
+<tr>
+<td>‘\t’</td>
+<td>‘\t’</td>
+</tr>
+<tr>
+<td>‘\n’</td>
+<td>‘\n’</td>
+</tr>
+<tr>
+<td>‘\x0b’</td>
+<td>‘\u000b’</td>
+</tr>
+<tr>
+<td>‘\x0c’</td>
+<td>‘\u000c’</td>
+</tr>
+<tr>
+<td>‘\r’</td>
+<td>‘\r’</td>
+</tr>
+<tr>
+<td>‘\x0e’</td>
+<td>‘\u000e’</td>
+</tr>
+<tr>
+<td>‘\x0f’</td>
+<td>‘\u000f’</td>
+</tr>
+<tr>
+<td>‘\x10’</td>
+<td>‘\u0010’</td>
+</tr>
+<tr>
+<td>‘\x11’</td>
+<td>‘\u0011’</td>
+</tr>
+<tr>
+<td>‘\x12’</td>
+<td>‘\u0012’</td>
+</tr>
+<tr>
+<td>‘\x13’</td>
+<td>‘\u0013’</td>
+</tr>
+<tr>
+<td>‘\x14’</td>
+<td>‘\u0014’</td>
+</tr>
+<tr>
+<td>‘\x15’</td>
+<td>‘\u0015’</td>
+</tr>
+<tr>
+<td>‘\x16’</td>
+<td>‘\u0016’</td>
+</tr>
+<tr>
+<td>‘\x17’</td>
+<td>‘\u0017’</td>
+</tr>
+<tr>
+<td>‘\x18’</td>
+<td>‘\u0018’</td>
+</tr>
+<tr>
+<td>‘\x19’</td>
+<td>‘\u0019’</td>
+</tr>
+<tr>
+<td>‘\x1a’</td>
+<td>‘\u001a’</td>
+</tr>
+<tr>
+<td>‘\x1b’</td>
+<td>‘\u001b’</td>
+</tr>
+<tr>
+<td>‘\x1c’</td>
+<td>‘\u001c’</td>
+</tr>
+<tr>
+<td>‘\x1d’</td>
+<td>‘\u001e’</td>
+</tr>
+<tr>
+<td>‘\x1e’</td>
+<td>‘\u001d’</td>
+</tr>
+<tr>
+<td>‘\x1f’</td>
+<td>‘\u001f’</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ESCAPE_DCT &#x3D; &#123;</span><br><span class="line">    &#39;\\&#39;: &#39;\\\\&#39;,</span><br><span class="line">    &#39;&quot;&#39;: &#39;\\&quot;&#39;,</span><br><span class="line">    &#39;\b&#39;: &#39;\\b&#39;,</span><br><span class="line">    &#39;\f&#39;: &#39;\\f&#39;,</span><br><span class="line">    &#39;\n&#39;: &#39;\\n&#39;,</span><br><span class="line">    &#39;\r&#39;: &#39;\\r&#39;,</span><br><span class="line">    &#39;\t&#39;: &#39;\\t&#39;,</span><br><span class="line">&#125;</span><br><span class="line">for i in range(0x20):</span><br><span class="line">    ESCAPE_DCT.setdefault(chr(i), &#39;\\u&#123;0:04x&#125;&#39;.format(i))</span><br><span class="line">    #ESCAPE_DCT.setdefault(chr(i), &#39;\\u%04x&#39; % (i,))</span><br></pre></td></tr></table></figure>
+<p><code>setdefault()</code>를 사용하여 키 밸류 맵핑을 했기때문에 <code>ESCAPE_DCT</code> 변수 선언 시 입력된 <code>\n</code>, <code>\r</code>, <code>\t</code> 등의 키는 값의 변화없이 첫 변수 선언 당시의 값을 그대로 유지하고 있습니다.</p>
+<p><code>chr(i)</code> 파이썬 빌트인 메소드로 입력된 정수 파라미터를 유니코드 스트링 형태로 반환합니다. 또 다른 빌트인 메소드 <code>ord()</code>의 반대이기도 합니다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; chr(65)</span><br><span class="line">&#39;A&#39;</span><br><span class="line">&gt;&gt;&gt; ord(&#39;A&#39;)</span><br><span class="line">65</span><br></pre></td></tr></table></figure></p>
+<p>코드 해석과는 별개로 왜 주석 처리된 코드를 지우지 않고 유지하고 있는지 궁금하네요.</p>
+<p><code>INFINITY</code> 변수는 float(‘inf’) 를 할당받고 있습니다. 타입은 당연히 <code>float</code> 이네요.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; type(float(&#39;inf&#39;))</span><br><span class="line">&lt;class &#39;float&#39;&gt;</span><br></pre></td></tr></table></figure></p>
+<p>다음은 메소드를 보겠습니다. </p>
+<p>일단 아래 첫 번째 4줄의 코드는 <code>_json</code> 모듈로 부터 <code>encode_basestring</code> 메소드를 임포트 하고 있습니다. 찾을 수 없을 경우 <code>None</code>을 할당합니다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">try:</span><br><span class="line">    from _json import encode_basestring as c_encode_basestring</span><br><span class="line">except ImportError:</span><br><span class="line">    c_encode_basestring &#x3D; None</span><br></pre></td></tr></table></figure>
+<p>일단 <code>_json</code> 이 녀석부터 다시 짚고 넘어가고 싶네요.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import json</span><br><span class="line">&gt;&gt;&gt; json</span><br><span class="line">&lt;module &#39;json&#39; from &#39;&#x2F;Library&#x2F;Frameworks&#x2F;Python.framework&#x2F;Versions&#x2F;3.6&#x2F;lib&#x2F;python3.6&#x2F;json&#x2F;__init__.py&#39;&gt;</span><br><span class="line"></span><br><span class="line"># From mac OS</span><br><span class="line">&gt;&gt;&gt; import _json</span><br><span class="line">&gt;&gt;&gt; _json</span><br><span class="line">&lt;module &#39;_json&#39; from &#39;&#x2F;Library&#x2F;Frameworks&#x2F;Python.framework&#x2F;Versions&#x2F;3.6&#x2F;lib&#x2F;python3.6&#x2F;lib-dynload&#x2F;_json.cpython-36m-darwin.so&#39;&gt;</span><br><span class="line"></span><br><span class="line"># From linux </span><br><span class="line">&gt;&gt;&gt; _json</span><br><span class="line">&lt;module &#39;_json&#39; from &#39;&#x2F;usr&#x2F;local&#x2F;lib&#x2F;python3.7&#x2F;lib-dynload&#x2F;_json.cpython-37m-x86_64-linux-gnu.so&#39;&gt;</span><br></pre></td></tr></table></figure><br><code>json</code>의 경우 지금 보고 있는 파일이 있는 모듈과 동일한 위치에 있습니다. </p>
+<p><code>_json</code> 은 <code>/lib-dynload/_json.&lt;BUILD_NAME&gt;.so</code> 으로 보이는군요. cpython 빌드 후 생성되는 파일로 보이네요. 파일 경로 <code>cpython/Modules/_json.c</code> <a href="https://github.com/python/cpython/blob/master/Modules/_json.c" target="_blank" rel="noopener"> link</a></p>
+<p><code>.so</code> 확장자는 이번 기회에 처음보게 됐는데요, <code>shared object</code>라고 하네요. </p>
+<p>참고용 -&gt; <a href="https://stackoverflow.com/questions/9809213/what-are-a-and-so-files" target="_blank" rel="noopener">stack overflow 답변 링크</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def py_encode_basestring(s):</span><br><span class="line">    &quot;&quot;&quot;Return a JSON representation of a Python string</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def replace(match):</span><br><span class="line">        return ESCAPE_DCT[match.group(0)]</span><br><span class="line">    return &#39;&quot;&#39; + ESCAPE.sub(replace, s) + &#39;&quot;&#39;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">encode_basestring &#x3D; (c_encode_basestring or py_encode_basestring)</span><br></pre></td></tr></table></figure>
+<p>파이썬 스트링의 JSON 표현을 반환합니다. 실제 메소드의 반환값은 아래 보이는 것과 같습니다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import json.encoder</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; json.encoder.py_encode_basestring(&quot;abcdef&quot;)</span><br><span class="line">&#39;&quot;abcdef&quot;&#39;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; json.encoder.py_encode_basestring(&quot;&#123;&#39;key&#39;: &#39;value&#39;&#125;&quot;)</span><br><span class="line">&#39;&quot;&#123;\&#39;key\&#39;: \&#39;value\&#39;&#125;&quot;&#39;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">encode_basestring &#x3D; (c_encode_basestring or py_encode_basestring)</span><br></pre></td></tr></table></figure>
+<p>cpython의 c_encode_basestring을 임포트할 수 있다면 c_encode_basestring 메소드를 사용합니다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">def py_encode_basestring_ascii(s):</span><br><span class="line">    &quot;&quot;&quot;Return an ASCII-only JSON representation of a Python string</span><br><span class="line"></span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def replace(match):</span><br><span class="line">        s &#x3D; match.group(0)</span><br><span class="line">        try:</span><br><span class="line">            return ESCAPE_DCT[s]</span><br><span class="line">        except KeyError:</span><br><span class="line">            n &#x3D; ord(s)</span><br><span class="line">            if n &lt; 0x10000:</span><br><span class="line">                return &#39;\\u&#123;0:04x&#125;&#39;.format(n)</span><br><span class="line">                #return &#39;\\u%04x&#39; % (n,)</span><br><span class="line">            else:</span><br><span class="line">                # surrogate pair</span><br><span class="line">                n -&#x3D; 0x10000</span><br><span class="line">                s1 &#x3D; 0xd800 | ((n &gt;&gt; 10) &amp; 0x3ff)</span><br><span class="line">                s2 &#x3D; 0xdc00 | (n &amp; 0x3ff)</span><br><span class="line">                return &#39;\\u&#123;0:04x&#125;\\u&#123;1:04x&#125;&#39;.format(s1, s2)</span><br><span class="line">    return &#39;&quot;&#39; + ESCAPE_ASCII.sub(replace, s) + &#39;&quot;&#39;</span><br></pre></td></tr></table></figure>
+<p>파이썬 스트링의 JSON 표현을 반환합니다. 다만 ASCII 코드만 반환합니다.</p>
+<p><code>py_encode_basestring_ascii()</code> 안에 있는 <code>replace()</code> 메소드를 보겠습니다. </p>
+<p>처음에 소개한 <code>ESCAPE_DCT</code>에서 <code>match.group(0)</code>을 키로 조회합니다. <code>ESCAPE_DCT</code> 객체는 0~31까지의 수로 만들어진 <code>\x00</code> ~ <code>\x1f</code> 를 키로 가지고 있습니다. 그렇기에 이외의 키로 조회하면 <code>KeyError</code>를 일으켜 <code>except</code> 구문으로 넘어가게됩니다. <code>ord(s)</code>를 통해 <code>n</code>은 0이상의 정수를 할당받습니다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">if n &lt; 0x10000:</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; 0x10000</span><br><span class="line">65536</span><br><span class="line">&gt;&gt;&gt; &#39;\\u&#123;0:04x&#125;&#39;.format(65535)</span><br><span class="line">&#39;\\uffff&#39;   # OK</span><br><span class="line">&gt;&gt;&gt; &#39;\\u&#123;0:04x&#125;&#39;.format(0)</span><br><span class="line">&#39;\\u0000&#39;   # OK</span><br></pre></td></tr></table></figure>
+<p><code>u0000~uffff</code>에 해당하는 문자열의 경우 위에 보이는 것과 같은 형태로 반환합니다.  </p>
+<p>코드를 읽다보니 <code>u0000~uffff</code>라는 범위는 어떤 기준으로 만들어진 것일까 라는 의문이 들었습니다.</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Plane_(Unicode" target="_blank" rel="noopener">Plane</a>)</li>
+<li><a href="https://en.wikipedia.org/wiki/Plane_(Unicode" target="_blank" rel="noopener">BMP</a>#Basic_Multilingual_Plane)</li>
+</ul>
+<p>위 링크를 참조하여 간단히 설명하면, <code>Plane</code>은 65,536개의 연속된 코드포인트라고 할 수 있습니다. 총 17개의 <code>plane</code>이 존재하며, <code>u0000~uffff</code>은 십진수로 변환시 0~65,535이기에 첫 번째 <code>Plane</code>이라고 할 수 있습니다. </p>
+<p><code>BMP</code>는 <code>Basic Multilingual Plane</code>의 약자이며, 첫 번째 <code>plane</code>을 의미합니다. 첫 번째 <code>plane</code>인 <code>BMP</code>는 현대 언어의 거의 모든 문자와 기호를 포함하고 있다고 합니다. CJK의 문자와 기호가 <code>BMP</code>의 많은 부분을 차지하고 있다고 합니다. </p>
+<p>다음으로 <code>else</code> 절을 보겠습니다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">else:</span><br><span class="line">    # surrogate pair</span><br><span class="line">    n -&#x3D; 0x10000</span><br><span class="line">    s1 &#x3D; 0xd800 | ((n &gt;&gt; 10) &amp; 0x3ff)</span><br><span class="line">    s2 &#x3D; 0xdc00 | (n &amp; 0x3ff)</span><br><span class="line">    return &#39;\\u&#123;0:04x&#125;\\u&#123;1:04x&#125;&#39;.format(s1, s2)</span><br></pre></td></tr></table></figure>
+<p><code>surrogate pair</code>가 무엇인지 부터 알아야겠네요. 아래 두 글을 참조하여 알아보겠습니다. </p>
+<ul>
+<li><a href="https://stackoverflow.com/questions/5903008/what-is-a-surrogate-pair-in-java" target="_blank" rel="noopener">What is a “surrogate pair” in Java? - stackoverflow</a></li>
+</ul>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/UTF-16" target="_blank" rel="noopener">UTF-16 - Wikipedia</a></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">from stackoverflow </span><br><span class="line"></span><br><span class="line">The term &quot;surrogate pair&quot; refers to a means of encoding Unicode characters with high code-points in the UTF-16 encoding scheme.</span><br><span class="line"></span><br><span class="line">In the Unicode character encoding, characters are mapped to values between 0x0 and 0x10FFFF.</span><br><span class="line"></span><br><span class="line">Internally, Java uses the UTF-16 encoding scheme to store strings of Unicode text. In UTF-16, 16-bit (two-byte) code units are used. Since 16 bits can only contain the range of characters from 0x0 to 0xFFFF, some additional complexity is used to store values above this range (0x10000 to 0x10FFFF). This is done using pairs of code units known as surrogates.</span><br><span class="line"></span><br><span class="line">The surrogate code units are in two ranges known as &quot;high surrogates&quot; and &quot;low surrogates&quot;, depending on whether they are allowed at the start or end of the two-code-unit sequence.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">from Wikipedia</span><br><span class="line"></span><br><span class="line">Code points from the other planes (called Supplementary Planes) are encoded as two 16-bit code units called a surrogate pair, by the following scheme:</span><br><span class="line"></span><br><span class="line">Examples</span><br><span class="line">To encode U+10437 (𐐷) to UTF-16:</span><br><span class="line"></span><br><span class="line">- Subtract 0x10000 from the code point, leaving 0x0437.</span><br><span class="line">- For the high surrogate, shift right by 10 (divide by 0x400), then add 0xD800, resulting in 0x0001 + 0xD800 &#x3D; 0xD801.</span><br><span class="line">- For the low surrogate, take the low 10 bits (remainder of dividing by 0x400), then add 0xDC00, resulting in 0x0037 + 0xDC00 &#x3D; 0xDC37.</span><br><span class="line"></span><br><span class="line">To decode U+10437 (𐐷) from UTF-16:</span><br><span class="line">- Take the high surrogate (0xD801) and subtract 0xD800, then multiply by 0x400, resulting in 0x0001 × 0x400 &#x3D; 0x0400.</span><br><span class="line">- Take the low surrogate (0xDC37) and subtract 0xDC00, resulting in 0x37.</span><br><span class="line">- Add these two results together (0x0437), and finally add 0x10000 to get the final decoded UTF-32 code point, 0x10437.</span><br></pre></td></tr></table></figure>
+<p>네, 잘 알아보았습니다. 역시 <code>Wikipedia</code>의 Example을 보니 좀 이해가 가네요.</p>
+<p>다음으로 <code>JSONEncoder</code> 클래스를 보겠습니다.</p>
+<p>위 클래스의 메소드를 보겠습니다. 참고로 가독성을 위해 메소드의 파라미터는 생략했습니다.</p>
+<ul>
+<li><code>__init__()</code></li>
+<li><code>default()</code></li>
+<li><code>encode()</code></li>
+<li><code>iterencode()</code></li>
+<li><code>_make_iterencode()</code></li>
+</ul>
+<p>생성자, 퍼블릭 메소드 셋, 프라이빗 메소드 하나를 가지고 있습니다.</p>
+<p><code>__init__()</code> : 생성자의 경우 특별한 로직 없이 입력받은 파라미터를 인스턴스 변수로 지정합니다. 다만 몇몇 변수의 경우 입력되지 않은 경우 기존에 있는 변수 및 메소드를 사용합니다. </p>
+<p><code>default()</code> : 어떤 값이 입력되어도 <code>TypeError</code>를 일으키도록 돼있습니다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def default(self, o):</span><br><span class="line">    raise TypeError(f&#39;Object of type &#123;o.__class__.__name__&#125; &#39;</span><br><span class="line">                    f&#39;is not JSON serializable&#39;)</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Specializing JSON object encoding::</span><br><span class="line"></span><br><span class="line">    &gt;&gt;&gt; import json</span><br><span class="line">    &gt;&gt;&gt; def encode_complex(obj):</span><br><span class="line">    ...     if isinstance(obj, complex):</span><br><span class="line">    ...         return [obj.real, obj.imag]</span><br><span class="line">    ...     raise TypeError(f&#39;Object of type &#123;obj.__class__.__name__&#125; &#39;</span><br><span class="line">    ...                     f&#39;is not JSON serializable&#39;)</span><br><span class="line">    ...</span><br><span class="line">    &gt;&gt;&gt; json.dumps(2 + 1j, default&#x3D;encode_complex)</span><br><span class="line">    &#39;[2.0, 1.0]&#39;</span><br><span class="line">    &gt;&gt;&gt; json.JSONEncoder(default&#x3D;encode_complex).encode(2 + 1j)</span><br><span class="line">    &#39;[2.0, 1.0]&#39;</span><br><span class="line">    &gt;&gt;&gt; &#39;&#39;.join(json.JSONEncoder(default&#x3D;encode_complex).iterencode(2 + 1j))</span><br><span class="line">    &#39;[2.0, 1.0]&#39;</span><br></pre></td></tr></table></figure>
+<p>위와 같이 <code>JSONEncoder</code>를 통해 인스턴스를 만들때 <code>default</code> 파라미터에 자신이 만든 <code>encode</code>용 메소드를 지정할 수 있습니다. </p>
+<p><code>encode()</code> : 파이썬 자료구조의 오브젝트를 JSON형태의 스트링으로 반환합니다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from json.encoder import JSONEncoder</span><br><span class="line">&gt;&gt;&gt; JSONEncoder().encode(&#123;&quot;foo&quot;: [&quot;bar&quot;, &quot;baz&quot;]&#125;)</span><br><span class="line">&#39;&#123;&quot;foo&quot;: [&quot;bar&quot;, &quot;baz&quot;]&#125;&#39;</span><br></pre></td></tr></table></figure></p>
+<p>조금 더 자세히 해당 메소드를 보겠습니다. </p>
+<p>첫 번째로 입력받은 파라미터가 <code>str</code> 인 경우 </p>
+<p><code>isinstance()</code>로 파라미터의 타입을 알아냅니다. <code>str</code>이 맞다면 인스턴스 변수 중 ensure_ascii의 값에 따라 <code>encode_basestring_ascii()</code> 또는 <code>encode_basestring()</code> 의 결과값을 반환하며 메소드가 끝이 납니다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; encoder.encode(&#39;a&#39;)</span><br><span class="line">&#39;&quot;a&quot;&#39;</span><br></pre></td></tr></table></figure>
+<p>파라미터가 <code>str</code> 가 아니라면 인스턴스 메소드 <code>iterencode()</code>의 반환값을 <code>chunks</code>에 할당하고, <code>chunks</code>가 <code>list</code> 또는 <code>tuple</code>이 아닌경우 <code>chunks</code> 를 <code>list</code>로 변환시켜 <code>return &#39;&#39;.join(chunks)</code>으로 본 메소드는 마무리 됩니다. </p>
+<p><code>iterencode(self, o, _one_shot=False)</code> : 입력된 오브젝트를 인코드한 후 <code>yield</code> 합니다. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">For example::</span><br><span class="line"></span><br><span class="line">for chunk in JSONEncoder().iterencode(bigobject):</span><br><span class="line">    mysocket.write(chunk)</span><br></pre></td></tr></table></figure>
+<p>코드를 확인해 보니<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">if (_one_shot and c_make_encoder is not None</span><br><span class="line">        and self.indent is None):</span><br><span class="line">    _iterencode &#x3D; c_make_encoder(</span><br><span class="line">        markers, self.default, _encoder, self.indent,</span><br><span class="line">        self.key_separator, self.item_separator, self.sort_keys,</span><br><span class="line">        self.skipkeys, self.allow_nan)</span><br><span class="line">else:</span><br><span class="line">    _iterencode &#x3D; _make_iterencode(</span><br><span class="line">        markers, self.default, _encoder, self.indent, floatstr,</span><br><span class="line">        self.key_separator, self.item_separator, self.sort_keys,</span><br><span class="line">        self.skipkeys, _one_shot)</span><br><span class="line">return _iterencode(o, 0)</span><br><span class="line">&#96;</span><br></pre></td></tr></table></figure></p>
+<p><code>iterencode()</code>는 파라미터를 입력받아 <code>_make_iterencode()</code> 메소드를 부르고 있습니다.</p>
+<p><code>encoder.py</code> 의 인코딩하는 주요 로직은 <code>_make_iterencode()</code>에 있었습니다. 프라이빗 메소드라서 안보고 넘어가려고 했는데 볼 수 밖에 없겠군요.</p>
+<p><code>_make_iterencode()</code> 는 내부에 세개의 프라이빗 메소드를 가지고 있습니다. </p>
+<p>각각의 역할은 다음과 같습니다. </p>
+<ul>
+<li><code>_iterencode()</code> : 로직이 처음으로 시작되는 메소드입니다. 입력된 오브젝트의 타입에 따라 적절한 메소드를 실행시킵니다.</li>
+<li><code>_iterencode_list()</code> : 오브젝트가 리스트 혹은 튜플 타입</li>
+<li><code>_iterencode_dict()</code> : 오브젝트가 딕셔너리 타입</li>
+</ul>
+<p><code>def _iterencode(o, _current_indent_level):</code> 를 좀 더 자세히 보겠습니다. </p>
+<p>입력된 오브젝트의 타입에 따라 적절한 메소드를 실행합니다. [<code>str</code>, <code>None</code>, <code>Bool</code>, <code>int</code>, <code>float</code>, <code>list</code>, <code>tuple</code>, <code>dict</code>] 이외의 타입은 <code>else</code> 절로 분기처리됩니다. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">def _iterencode(o, _current_indent_level)</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">else:</span><br><span class="line">    if markers is not None:</span><br><span class="line">        markerid &#x3D; id(o)</span><br><span class="line">        if markerid in markers:</span><br><span class="line">            raise ValueError(&quot;Circular reference detected&quot;)</span><br><span class="line">        markers[markerid] &#x3D; o</span><br><span class="line">    o &#x3D; _default(o)</span><br><span class="line">    yield from _iterencode(o, _current_indent_level)</span><br><span class="line">    if markers is not None:</span><br><span class="line">        del markers[markerid]</span><br></pre></td></tr></table></figure>
+<p>다음 로직은 <code>markers</code> 의 값에 따라 결정됩니다. <code>markers</code>는 <code>iterencode()</code> 메소드 안에서 check_circular의 값에 따라 결정됩니다. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def iterencode(self, o, _one_shot&#x3D;False):</span><br><span class="line">    if self.check_circular:</span><br><span class="line">        markers &#x3D; &#123;&#125;</span><br><span class="line">    else:</span><br><span class="line">        markers &#x3D; None</span><br></pre></td></tr></table></figure>
+<p><code>check_circular</code>의 역할은 다음과 같습니다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">If check_circular is true, then lists, dicts, and custom encoded</span><br><span class="line">objects will be checked for circular references during encoding to</span><br><span class="line">prevent an infinite recursion (which would cause an OverflowError).</span><br><span class="line">Otherwise, no such check takes place.</span><br></pre></td></tr></table></figure>
+<p>인코딩중 일어날 수 있는 <code>infinite recursion(무한 재귀)</code> 를 막기위한 파라미터로 <code>true</code>인 경우 <code>circular references</code> 여부를 검사합니다. </p>
+<p><code>JSONEncoder</code> 생성자의 <code>check_circular=True</code> 와 같은 기본 값을 가지고 있습니다. 특별히 <code>False</code>로 지정하지 않는 한 순환 참조와 관련한 검사가 실행됩니다. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">def _iterencode(o, _current_indent_level)</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">else:</span><br><span class="line">    if markers is not None:</span><br><span class="line">        markerid &#x3D; id(o)</span><br><span class="line">        if markerid in markers:</span><br><span class="line">            raise ValueError(&quot;Circular reference detected&quot;)</span><br><span class="line">        markers[markerid] &#x3D; o</span><br><span class="line">    o &#x3D; _default(o)</span><br><span class="line">    yield from _iterencode(o, _current_indent_level)</span><br><span class="line">    if markers is not None:</span><br><span class="line">        del markers[markerid]</span><br></pre></td></tr></table></figure>
+<p>다시 <code>_iterencode()</code> 코드를 보겠습니다. 특별한 변경이 없다면 <code>markers</code>는 빈 딕셔너리를 값으로 가지고 있습니다. 빌트인 메소드 <code>id()</code> 를 통해 입력받은 오브젝트의 식별값을 <code>makers</code>의 <code>key</code>, 오브젝트를 <code>value</code>로 할당합니다. </p>
+<p>다음으로 <code>_default()</code> 메소드로 오브젝트 직렬화 가능한 객체로 변환시킵니다. 만약 직렬화 가능하지 않다면 <code>TypeError</code>를 일으킵니다.</p>
+<p><a href="https://docs.python.org/3/library/json.html#json.JSONEncoder" target="_blank" rel="noopener">json - python3 official document</a>에서 <code>default()</code> 메소드에 관한 설명을 가져왔습니다. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">returns a serializable object for o if possible, otherwise it should call the superclass implementation (to raise TypeError).</span><br></pre></td></tr></table></figure>
+<p>직렬화 된 객체를 다시 본 메소드(<code>_iterencode()</code>)의 첫 번째 파라미터로 넣어 메소드를 실행합니다. <code>yield from</code> 예약 키워드를 통해 본 메소드의 반환 값을 <code>yield</code> 합니다. 그 후 <code>markers</code> 에서 <code>makerid</code> 키를 제거합니다.</p>
+<p>(yield 번역을 어떻게 해야할지 잘 모르겠네요…)</p>
+<p><code>yield from</code> 표현식에 익숙치 않아서 그런지 좀 찾아봤습니다.</p>
+<ul>
+<li><a href="https://docs.python.org/3/whatsnew/3.3.html" target="_blank" rel="noopener">https://docs.python.org/3/whatsnew/3.3.html</a></li>
+<li>New syntax features:</li>
+<li>New <code>yield from</code> expression for <a href="https://docs.python.org/3/whatsnew/3.3.html#pep-380" target="_blank" rel="noopener">generator delegation</a>.</li>
+</ul>
+<p><code>generator delegation</code> 제너레이터 위임이라… 정확한 내용은 문서를 좀 더 읽어보겠습니다. 추가로 기존에 있던 <code>yeild</code> 와 어떤 차이가 있는지도 알아두고 싶네요.</p>
+<p>일단 <code>3.3</code>에 추가된 기능이군요. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PEP 380 adds the &#39;yield from&#39; expression, allowing a generator to delegate part of its operations to another generator. This allows a section of code containing yield to be factored out and placed in another generator. Additionally, the subgenerator is allowed to return with a value, and the value is made available to the delegating generator.</span><br></pre></td></tr></table></figure>
+<p>해석은 여러분들 각자에게 맡기겠습니다.</p>
+<p>이것으로 <code>json/encoder.py</code> 읽어보기가 끝났습니다. 다음으로는 <code>decoder.py</code> 가 이어집니다.</p>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#json-JSON-encoder-and-decoder"><span class="toc-number">1.</span> <span class="toc-text">json - JSON encoder and decoder</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://urangurang.github.io/python/code-reading-json-encoder/" target="_blank" rel="noopener"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://urangurang.github.io/python/code-reading-json-encoder/&text=파이썬 코드 읽어보기 - json/encoder.py" target="_blank" rel="noopener"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://urangurang.github.io/python/code-reading-json-encoder/&title=파이썬 코드 읽어보기 - json/encoder.py" target="_blank" rel="noopener"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://urangurang.github.io/python/code-reading-json-encoder/&is_video=false&description=파이썬 코드 읽어보기 - json/encoder.py" target="_blank" rel="noopener"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=파이썬 코드 읽어보기 - json/encoder.py&body=Check out this article: https://urangurang.github.io/python/code-reading-json-encoder/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://urangurang.github.io/python/code-reading-json-encoder/&title=파이썬 코드 읽어보기 - json/encoder.py" target="_blank" rel="noopener"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://urangurang.github.io/python/code-reading-json-encoder/&title=파이썬 코드 읽어보기 - json/encoder.py" target="_blank" rel="noopener"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://urangurang.github.io/python/code-reading-json-encoder/&title=파이썬 코드 읽어보기 - json/encoder.py" target="_blank" rel="noopener"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://urangurang.github.io/python/code-reading-json-encoder/&title=파이썬 코드 읽어보기 - json/encoder.py" target="_blank" rel="noopener"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://urangurang.github.io/python/code-reading-json-encoder/&name=파이썬 코드 읽어보기 - json/encoder.py&description=" target="_blank" rel="noopener"><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2020 urangurang
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-158081532-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+
