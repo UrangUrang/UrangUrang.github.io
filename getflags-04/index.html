@@ -11,7 +11,7 @@
     <meta name="description" content="아직까지 Find 부분에서 벗어나지 못하고 있다. 디자인에 신경쓰느라 시간이 지체된다고 느껴 일단 기능 구현에 우선하여 개발하고 있다. 오늘은 오후 일정이 많아 오전 3시간밖에 일하지 못한게 아쉬웠고, 일단 내일은 많은 시간을 집중해서 마무리 할 수 있도록 해봐야겠다. 오늘은 Find 부분의 필터 클릭 시 URL 창에 파라미터를 실시간으로 넘길 수 있도록">
 <meta property="og:type" content="article">
 <meta property="og:title" content="3일차 Find 작업 중">
-<meta property="og:url" content="https://urangurang.github.io/3%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-Find-%E1%84%8C%E1%85%A1%E1%86%A8%E1%84%8B%E1%85%A5%E1%86%B8-%E1%84%8C%E1%85%AE%E1%86%BC/index.html">
+<meta property="og:url" content="https://urangurang.github.io/getflags-04/index.html">
 <meta property="og:site_name" content="urangurang">
 <meta property="og:description" content="아직까지 Find 부분에서 벗어나지 못하고 있다. 디자인에 신경쓰느라 시간이 지체된다고 느껴 일단 기능 구현에 우선하여 개발하고 있다. 오늘은 오후 일정이 많아 오전 3시간밖에 일하지 못한게 아쉬웠고, 일단 내일은 많은 시간을 집중해서 마무리 할 수 있도록 해봐야겠다. 오늘은 Find 부분의 필터 클릭 시 URL 창에 파라미터를 실시간으로 넘길 수 있도록">
 <meta property="og:locale" content="ko_KR">
@@ -71,10 +71,10 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" href="/4~5%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-Find-%E1%84%8C%E1%85%A1%E1%86%A8%E1%84%8B%E1%85%A5%E1%86%B8-%E1%84%8C%E1%85%AE%E1%86%BC/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" href="/getflags-05/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" href="/2%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-%E1%84%90%E1%85%B3%E1%84%85%E1%85%A6%E1%86%AF%E1%84%85%E1%85%A9-%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8C%E1%85%A5%E1%86%BC-%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5-%E1%84%89%E1%85%A6%E1%84%87%E1%85%AE-%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8C%E1%85%A5%E1%86%BC/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" href="/getflags-03/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -87,10 +87,10 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://urangurang.github.io/3%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-Find-%E1%84%8C%E1%85%A1%E1%86%A8%E1%84%8B%E1%85%A5%E1%86%B8-%E1%84%8C%E1%85%AE%E1%86%BC/" target="_blank" rel="noopener"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=https://urangurang.github.io/3%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-Find-%E1%84%8C%E1%85%A1%E1%86%A8%E1%84%8B%E1%85%A5%E1%86%B8-%E1%84%8C%E1%85%AE%E1%86%BC/&text=3일차 Find 작업 중" target="_blank" rel="noopener"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://urangurang.github.io/3%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-Find-%E1%84%8C%E1%85%A1%E1%86%A8%E1%84%8B%E1%85%A5%E1%86%B8-%E1%84%8C%E1%85%AE%E1%86%BC/&title=3일차 Find 작업 중" target="_blank" rel="noopener"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=3일차 Find 작업 중&body=Check out this article: https://urangurang.github.io/3%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-Find-%E1%84%8C%E1%85%A1%E1%86%A8%E1%84%8B%E1%85%A5%E1%86%B8-%E1%84%8C%E1%85%AE%E1%86%BC/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://urangurang.github.io/getflags-04/" target="_blank" rel="noopener"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://urangurang.github.io/getflags-04/&text=3일차 Find 작업 중" target="_blank" rel="noopener"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://urangurang.github.io/getflags-04/&title=3일차 Find 작업 중" target="_blank" rel="noopener"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=3일차 Find 작업 중&body=Check out this article: https://urangurang.github.io/getflags-04/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -170,10 +170,10 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://urangurang.github.io/3%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-Find-%E1%84%8C%E1%85%A1%E1%86%A8%E1%84%8B%E1%85%A5%E1%86%B8-%E1%84%8C%E1%85%AE%E1%86%BC/" target="_blank" rel="noopener"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=https://urangurang.github.io/3%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-Find-%E1%84%8C%E1%85%A1%E1%86%A8%E1%84%8B%E1%85%A5%E1%86%B8-%E1%84%8C%E1%85%AE%E1%86%BC/&text=3일차 Find 작업 중" target="_blank" rel="noopener"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://urangurang.github.io/3%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-Find-%E1%84%8C%E1%85%A1%E1%86%A8%E1%84%8B%E1%85%A5%E1%86%B8-%E1%84%8C%E1%85%AE%E1%86%BC/&title=3일차 Find 작업 중" target="_blank" rel="noopener"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=3일차 Find 작업 중&body=Check out this article: https://urangurang.github.io/3%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-Find-%E1%84%8C%E1%85%A1%E1%86%A8%E1%84%8B%E1%85%A5%E1%86%B8-%E1%84%8C%E1%85%AE%E1%86%BC/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://urangurang.github.io/getflags-04/" target="_blank" rel="noopener"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://urangurang.github.io/getflags-04/&text=3일차 Find 작업 중" target="_blank" rel="noopener"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://urangurang.github.io/getflags-04/&title=3일차 Find 작업 중" target="_blank" rel="noopener"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=3일차 Find 작업 중&body=Check out this article: https://urangurang.github.io/getflags-04/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

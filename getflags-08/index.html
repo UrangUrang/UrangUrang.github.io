@@ -11,7 +11,7 @@
     <meta name="description" content="드디어 며칠동안 헤매던 Find 부분 해결이 났다. 기존 모델 상속 받아서 확장하기 보단, 새로운 모델을 하나 더 만들어 새롭게 저장하는 방식으로 해결을 했다. 기존 모델을 상속받아 새로운 정보를 저장하는 방식에서 겪었던 문제는 다음과 같다. 처음엔 allauth 모델 확장과 관련해 잘 쓰여진 어느 블로그의 포스팅을 참고하며 시작했으나 알 수 없는 문제가">
 <meta property="og:type" content="article">
 <meta property="og:title" content="10~11일차 allauth 관련 상속 및 확장">
-<meta property="og:url" content="https://urangurang.github.io/10~11%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-allauth-%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%A7%E1%86%AB-%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%A9%E1%86%A8-%E1%84%86%E1%85%B5%E1%86%BE-%E1%84%92%E1%85%AA%E1%86%A8%E1%84%8C%E1%85%A1%E1%86%BC/index.html">
+<meta property="og:url" content="https://urangurang.github.io/getflags-08/index.html">
 <meta property="og:site_name" content="urangurang">
 <meta property="og:description" content="드디어 며칠동안 헤매던 Find 부분 해결이 났다. 기존 모델 상속 받아서 확장하기 보단, 새로운 모델을 하나 더 만들어 새롭게 저장하는 방식으로 해결을 했다. 기존 모델을 상속받아 새로운 정보를 저장하는 방식에서 겪었던 문제는 다음과 같다. 처음엔 allauth 모델 확장과 관련해 잘 쓰여진 어느 블로그의 포스팅을 참고하며 시작했으나 알 수 없는 문제가">
 <meta property="og:locale" content="ko_KR">
@@ -71,10 +71,10 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" href="/GetFlags%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%89%E1%85%B5%E1%84%8C%E1%85%A1%E1%86%A8%E1%84%92%E1%85%A1%E1%86%AB%E1%84%8B%E1%85%B5%E1%84%8B%E1%85%B2/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" href="/getflags-01/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" href="/6~7%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-%E1%84%8C%E1%85%AE%E1%84%86%E1%85%A1%E1%86%AF-%E1%84%8B%E1%85%A1%E1%84%85%E1%85%B3%E1%84%87%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%90%E1%85%B3/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" href="/getflags-07/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -87,10 +87,10 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://urangurang.github.io/10~11%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-allauth-%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%A7%E1%86%AB-%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%A9%E1%86%A8-%E1%84%86%E1%85%B5%E1%86%BE-%E1%84%92%E1%85%AA%E1%86%A8%E1%84%8C%E1%85%A1%E1%86%BC/" target="_blank" rel="noopener"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=https://urangurang.github.io/10~11%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-allauth-%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%A7%E1%86%AB-%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%A9%E1%86%A8-%E1%84%86%E1%85%B5%E1%86%BE-%E1%84%92%E1%85%AA%E1%86%A8%E1%84%8C%E1%85%A1%E1%86%BC/&text=10~11일차 allauth 관련 상속 및 확장" target="_blank" rel="noopener"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://urangurang.github.io/10~11%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-allauth-%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%A7%E1%86%AB-%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%A9%E1%86%A8-%E1%84%86%E1%85%B5%E1%86%BE-%E1%84%92%E1%85%AA%E1%86%A8%E1%84%8C%E1%85%A1%E1%86%BC/&title=10~11일차 allauth 관련 상속 및 확장" target="_blank" rel="noopener"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=10~11일차 allauth 관련 상속 및 확장&body=Check out this article: https://urangurang.github.io/10~11%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-allauth-%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%A7%E1%86%AB-%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%A9%E1%86%A8-%E1%84%86%E1%85%B5%E1%86%BE-%E1%84%92%E1%85%AA%E1%86%A8%E1%84%8C%E1%85%A1%E1%86%BC/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://urangurang.github.io/getflags-08/" target="_blank" rel="noopener"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://urangurang.github.io/getflags-08/&text=10~11일차 allauth 관련 상속 및 확장" target="_blank" rel="noopener"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://urangurang.github.io/getflags-08/&title=10~11일차 allauth 관련 상속 및 확장" target="_blank" rel="noopener"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=10~11일차 allauth 관련 상속 및 확장&body=Check out this article: https://urangurang.github.io/getflags-08/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -179,10 +179,10 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://urangurang.github.io/10~11%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-allauth-%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%A7%E1%86%AB-%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%A9%E1%86%A8-%E1%84%86%E1%85%B5%E1%86%BE-%E1%84%92%E1%85%AA%E1%86%A8%E1%84%8C%E1%85%A1%E1%86%BC/" target="_blank" rel="noopener"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=https://urangurang.github.io/10~11%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-allauth-%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%A7%E1%86%AB-%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%A9%E1%86%A8-%E1%84%86%E1%85%B5%E1%86%BE-%E1%84%92%E1%85%AA%E1%86%A8%E1%84%8C%E1%85%A1%E1%86%BC/&text=10~11일차 allauth 관련 상속 및 확장" target="_blank" rel="noopener"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://urangurang.github.io/10~11%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-allauth-%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%A7%E1%86%AB-%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%A9%E1%86%A8-%E1%84%86%E1%85%B5%E1%86%BE-%E1%84%92%E1%85%AA%E1%86%A8%E1%84%8C%E1%85%A1%E1%86%BC/&title=10~11일차 allauth 관련 상속 및 확장" target="_blank" rel="noopener"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=10~11일차 allauth 관련 상속 및 확장&body=Check out this article: https://urangurang.github.io/10~11%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-allauth-%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%A7%E1%86%AB-%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%A9%E1%86%A8-%E1%84%86%E1%85%B5%E1%86%BE-%E1%84%92%E1%85%AA%E1%86%A8%E1%84%8C%E1%85%A1%E1%86%BC/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://urangurang.github.io/getflags-08/" target="_blank" rel="noopener"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://urangurang.github.io/getflags-08/&text=10~11일차 allauth 관련 상속 및 확장" target="_blank" rel="noopener"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://urangurang.github.io/getflags-08/&title=10~11일차 allauth 관련 상속 및 확장" target="_blank" rel="noopener"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=10~11일차 allauth 관련 상속 및 확장&body=Check out this article: https://urangurang.github.io/getflags-08/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

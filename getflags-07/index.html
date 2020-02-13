@@ -11,7 +11,7 @@
     <meta name="description" content="Find 필터링에 따른 유저모델 가져오기 완료  필터링된 유저모델을 필터 버튼 누르면 화면으로 가져오게 하면됨 오늘(12일)안에 할 예정  Django allauth custom user model, 기본 allauth가 제공하는 socialaccount 모델에 원하는 칼럼이 충분치 않아 확장해서 사용하는 방법 고민 중, 찾는 중">
 <meta property="og:type" content="article">
 <meta property="og:title" content="8~9일차 Find 기능 완료,  User 모델 보완">
-<meta property="og:url" content="https://urangurang.github.io/8~9%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-Find-%E1%84%80%E1%85%B5%E1%84%82%E1%85%B3%E1%86%BC-%E1%84%8B%E1%85%AA%E1%86%AB%E1%84%85%E1%85%AD--User-%E1%84%86%E1%85%A9%E1%84%83%E1%85%A6%E1%86%AF-%E1%84%87%E1%85%A9%E1%84%8B%E1%85%AA%E1%86%AB/index.html">
+<meta property="og:url" content="https://urangurang.github.io/getflags-07/index.html">
 <meta property="og:site_name" content="urangurang">
 <meta property="og:description" content="Find 필터링에 따른 유저모델 가져오기 완료  필터링된 유저모델을 필터 버튼 누르면 화면으로 가져오게 하면됨 오늘(12일)안에 할 예정  Django allauth custom user model, 기본 allauth가 제공하는 socialaccount 모델에 원하는 칼럼이 충분치 않아 확장해서 사용하는 방법 고민 중, 찾는 중">
 <meta property="og:locale" content="ko_KR">
@@ -71,10 +71,10 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" href="/6~7%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-%E1%84%8C%E1%85%AE%E1%84%86%E1%85%A1%E1%86%AF-%E1%84%8B%E1%85%A1%E1%84%85%E1%85%B3%E1%84%87%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%90%E1%85%B3/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" href="/getflags-08/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" href="/4~5%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-Find-%E1%84%8C%E1%85%A1%E1%86%A8%E1%84%8B%E1%85%A5%E1%86%B8-%E1%84%8C%E1%85%AE%E1%86%BC/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" href="/getflags-06/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -87,10 +87,10 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://urangurang.github.io/8~9%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-Find-%E1%84%80%E1%85%B5%E1%84%82%E1%85%B3%E1%86%BC-%E1%84%8B%E1%85%AA%E1%86%AB%E1%84%85%E1%85%AD--User-%E1%84%86%E1%85%A9%E1%84%83%E1%85%A6%E1%86%AF-%E1%84%87%E1%85%A9%E1%84%8B%E1%85%AA%E1%86%AB/" target="_blank" rel="noopener"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=https://urangurang.github.io/8~9%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-Find-%E1%84%80%E1%85%B5%E1%84%82%E1%85%B3%E1%86%BC-%E1%84%8B%E1%85%AA%E1%86%AB%E1%84%85%E1%85%AD--User-%E1%84%86%E1%85%A9%E1%84%83%E1%85%A6%E1%86%AF-%E1%84%87%E1%85%A9%E1%84%8B%E1%85%AA%E1%86%AB/&text=8~9일차 Find 기능 완료,  User 모델 보완" target="_blank" rel="noopener"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://urangurang.github.io/8~9%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-Find-%E1%84%80%E1%85%B5%E1%84%82%E1%85%B3%E1%86%BC-%E1%84%8B%E1%85%AA%E1%86%AB%E1%84%85%E1%85%AD--User-%E1%84%86%E1%85%A9%E1%84%83%E1%85%A6%E1%86%AF-%E1%84%87%E1%85%A9%E1%84%8B%E1%85%AA%E1%86%AB/&title=8~9일차 Find 기능 완료,  User 모델 보완" target="_blank" rel="noopener"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=8~9일차 Find 기능 완료,  User 모델 보완&body=Check out this article: https://urangurang.github.io/8~9%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-Find-%E1%84%80%E1%85%B5%E1%84%82%E1%85%B3%E1%86%BC-%E1%84%8B%E1%85%AA%E1%86%AB%E1%84%85%E1%85%AD--User-%E1%84%86%E1%85%A9%E1%84%83%E1%85%A6%E1%86%AF-%E1%84%87%E1%85%A9%E1%84%8B%E1%85%AA%E1%86%AB/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://urangurang.github.io/getflags-07/" target="_blank" rel="noopener"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://urangurang.github.io/getflags-07/&text=8~9일차 Find 기능 완료,  User 모델 보완" target="_blank" rel="noopener"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://urangurang.github.io/getflags-07/&title=8~9일차 Find 기능 완료,  User 모델 보완" target="_blank" rel="noopener"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=8~9일차 Find 기능 완료,  User 모델 보완&body=Check out this article: https://urangurang.github.io/getflags-07/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -172,10 +172,10 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://urangurang.github.io/8~9%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-Find-%E1%84%80%E1%85%B5%E1%84%82%E1%85%B3%E1%86%BC-%E1%84%8B%E1%85%AA%E1%86%AB%E1%84%85%E1%85%AD--User-%E1%84%86%E1%85%A9%E1%84%83%E1%85%A6%E1%86%AF-%E1%84%87%E1%85%A9%E1%84%8B%E1%85%AA%E1%86%AB/" target="_blank" rel="noopener"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=https://urangurang.github.io/8~9%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-Find-%E1%84%80%E1%85%B5%E1%84%82%E1%85%B3%E1%86%BC-%E1%84%8B%E1%85%AA%E1%86%AB%E1%84%85%E1%85%AD--User-%E1%84%86%E1%85%A9%E1%84%83%E1%85%A6%E1%86%AF-%E1%84%87%E1%85%A9%E1%84%8B%E1%85%AA%E1%86%AB/&text=8~9일차 Find 기능 완료,  User 모델 보완" target="_blank" rel="noopener"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://urangurang.github.io/8~9%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-Find-%E1%84%80%E1%85%B5%E1%84%82%E1%85%B3%E1%86%BC-%E1%84%8B%E1%85%AA%E1%86%AB%E1%84%85%E1%85%AD--User-%E1%84%86%E1%85%A9%E1%84%83%E1%85%A6%E1%86%AF-%E1%84%87%E1%85%A9%E1%84%8B%E1%85%AA%E1%86%AB/&title=8~9일차 Find 기능 완료,  User 모델 보완" target="_blank" rel="noopener"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=8~9일차 Find 기능 완료,  User 모델 보완&body=Check out this article: https://urangurang.github.io/8~9%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-Find-%E1%84%80%E1%85%B5%E1%84%82%E1%85%B3%E1%86%BC-%E1%84%8B%E1%85%AA%E1%86%AB%E1%84%85%E1%85%AD--User-%E1%84%86%E1%85%A9%E1%84%83%E1%85%A6%E1%86%AF-%E1%84%87%E1%85%A9%E1%84%8B%E1%85%AA%E1%86%AB/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://urangurang.github.io/getflags-07/" target="_blank" rel="noopener"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://urangurang.github.io/getflags-07/&text=8~9일차 Find 기능 완료,  User 모델 보완" target="_blank" rel="noopener"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://urangurang.github.io/getflags-07/&title=8~9일차 Find 기능 완료,  User 모델 보완" target="_blank" rel="noopener"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=8~9일차 Find 기능 완료,  User 모델 보완&body=Check out this article: https://urangurang.github.io/getflags-07/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
