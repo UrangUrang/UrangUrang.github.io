@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang=ko>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1, minimum-scale=0.8" />
+    
+    <meta name="description" content="Flask-babel을 통한 국제화i18n(Internationalization)Flask-BabelFlask-Babel은 플라스크의 i18n, l10n을 지원하는 익스텐션입니다. 날짜 형식, 타임존과 관련한 기능을 가지고 있으며, gettext를 통한 번역을 가능케 합니다. 저는 히어박스의 영문, 중문, 일문 버전 웹사이트를 만들기 위해 Flask-Bab">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flask-babel을 사용해 홈페이지 국제화를 시도해보자">
+<meta property="og:url" content="https://urangurang.github.io/flask-babel/index.html">
+<meta property="og:site_name" content="urangurang">
+<meta property="og:description" content="Flask-babel을 통한 국제화i18n(Internationalization)Flask-BabelFlask-Babel은 플라스크의 i18n, l10n을 지원하는 익스텐션입니다. 날짜 형식, 타임존과 관련한 기능을 가지고 있으며, gettext를 통한 번역을 가능케 합니다. 저는 히어박스의 영문, 중문, 일문 버전 웹사이트를 만들기 위해 Flask-Bab">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://urangurang.github.io/images/flask-babel_02.png">
+<meta property="og:image" content="https://urangurang.github.io/images/flask-babel_01.png">
+<meta property="article:published_time" content="2016-11-02T15:00:00.000Z">
+<meta property="article:modified_time" content="2020-02-13T13:28:32.000Z">
+<meta property="article:author" content="urangurang">
+<meta property="article:tag" content="i18n">
+<meta property="article:tag" content="flask-babel">
+<meta property="article:tag" content="babel">
+<meta property="article:tag" content="internationalization">
+<meta property="article:tag" content="국제화">
+<meta property="article:tag" content="바벨">
+<meta property="article:tag" content="플라스크바벨">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://urangurang.github.io/images/flask-babel_02.png">
+    
+
+    
+        
+            
+                <link rel="shortcut icon" href="/images/favicon.ico">
+            
+        
+        
+            
+                <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+            
+        
+        
+            
+                <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+            
+        
+    
+    <!-- title -->
+    <title>Flask-babel을 사용해 홈페이지 국제화를 시도해보자</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Archive</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/its-a-sony-tokyo/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/fabric-get-started/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://urangurang.github.io/flask-babel/" target="_blank" rel="noopener"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://urangurang.github.io/flask-babel/&text=Flask-babel을 사용해 홈페이지 국제화를 시도해보자" target="_blank" rel="noopener"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://urangurang.github.io/flask-babel/&title=Flask-babel을 사용해 홈페이지 국제화를 시도해보자" target="_blank" rel="noopener"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Flask-babel을 사용해 홈페이지 국제화를 시도해보자&body=Check out this article: https://urangurang.github.io/flask-babel/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Flask-babel을-통한-국제화i18n-Internationalization"><span class="toc-number">1.</span> <span class="toc-text">Flask-babel을 통한 국제화i18n(Internationalization)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Flask-Babel"><span class="toc-number">1.1.</span> <span class="toc-text">Flask-Babel</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#바벨-4단계"><span class="toc-number">1.2.</span> <span class="toc-text">바벨 4단계</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#바벨-1단계-설치"><span class="toc-number">1.3.</span> <span class="toc-text">바벨 1단계 - 설치</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#바벨-1단계-설정"><span class="toc-number">1.4.</span> <span class="toc-text">바벨 1단계 - 설정</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#init-py"><span class="toc-number">1.4.0.1.</span> <span class="toc-text">__init__.py</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#config-py"><span class="toc-number">1.4.0.2.</span> <span class="toc-text">config.py</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#views-py"><span class="toc-number">1.4.0.3.</span> <span class="toc-text">views.py</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#werkzeug-wrappers-py"><span class="toc-number">1.4.0.4.</span> <span class="toc-text">werkzeug&#x2F;wrappers.py</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#babel-cfg"><span class="toc-number">1.4.0.5.</span> <span class="toc-text">babel.cfg</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#바벨-2단계-번역될-텍스트-선별"><span class="toc-number">1.5.</span> <span class="toc-text">바벨 2단계 - 번역될 텍스트 선별</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#views-py-1"><span class="toc-number">1.5.0.1.</span> <span class="toc-text">views.py</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#login-html"><span class="toc-number">1.5.0.2.</span> <span class="toc-text">login.html</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#바벨-2단계-지정-문자열-추출하기"><span class="toc-number">1.6.</span> <span class="toc-text">바벨 2단계 - 지정 문자열 추출하기</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#messages-pot"><span class="toc-number">1.6.0.1.</span> <span class="toc-text">messages.pot</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#babel-cfg-1"><span class="toc-number">1.6.0.2.</span> <span class="toc-text">babel.cfg</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#messages-pot-1"><span class="toc-number">1.6.0.3.</span> <span class="toc-text">messages.pot</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#바벨-3단계-언어별-일본어-중국어-영어-목록-생성하기"><span class="toc-number">1.7.</span> <span class="toc-text">바벨 3단계 - 언어별(일본어, 중국어, 영어) 목록 생성하기</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#app-translations-en-LC-MESSAGES-messages-po"><span class="toc-number">1.7.0.1.</span> <span class="toc-text">app&#x2F;translations&#x2F;en&#x2F;LC_MESSAGES&#x2F;messages.po</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#app-translations-en-LC-MESSAGES-messages-po-1"><span class="toc-number">1.7.0.2.</span> <span class="toc-text">app&#x2F;translations&#x2F;en&#x2F;LC_MESSAGES&#x2F;messages.po</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#바벨-4단계-언어목록-컴파일"><span class="toc-number">1.8.</span> <span class="toc-text">바벨 4단계 - 언어목록 컴파일</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#테스트"><span class="toc-number">1.9.</span> <span class="toc-text">테스트</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#views-py-2"><span class="toc-number">1.9.0.1.</span> <span class="toc-text">views.py</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#새롭게-추가된-문자열-반영하기"><span class="toc-number">1.10.</span> <span class="toc-text">새롭게 추가된 문자열 반영하기</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#fabfile-py"><span class="toc-number">1.10.0.1.</span> <span class="toc-text">fabfile.py</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#실제-적용"><span class="toc-number">1.11.</span> <span class="toc-text">실제 적용</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#views-py-3"><span class="toc-number">1.11.0.1.</span> <span class="toc-text">views.py</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#nav-html"><span class="toc-number">1.11.0.2.</span> <span class="toc-text">nav.html</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#추가-내용"><span class="toc-number">1.12.</span> <span class="toc-text">추가 내용</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#마무리"><span class="toc-number">1.13.</span> <span class="toc-text">마무리</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#참고사이트-목록"><span class="toc-number">1.14.</span> <span class="toc-text">참고사이트 목록</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Flask-babel을 사용해 홈페이지 국제화를 시도해보자
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">urangurang</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2016-11-02T15:00:00.000Z" itemprop="datePublished">2016-11-03</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-caret-down"></i>
+        <a class="category-link" href="/categories/python/">python</a>, <a class="category-link" href="/categories/python/flask/">flask</a>
+    </div>
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/babel/" rel="tag">babel</a>, <a class="tag-link" href="/tags/flask-babel/" rel="tag">flask-babel</a>, <a class="tag-link" href="/tags/i18n/" rel="tag">i18n</a>, <a class="tag-link" href="/tags/internationalization/" rel="tag">internationalization</a>, <a class="tag-link" href="/tags/%EA%B5%AD%EC%A0%9C%ED%99%94/" rel="tag">국제화</a>, <a class="tag-link" href="/tags/%EB%B0%94%EB%B2%A8/" rel="tag">바벨</a>, <a class="tag-link" href="/tags/%ED%94%8C%EB%9D%BC%EC%8A%A4%ED%81%AC%EB%B0%94%EB%B2%A8/" rel="tag">플라스크바벨</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="Flask-babel을-통한-국제화i18n-Internationalization"><a href="#Flask-babel을-통한-국제화i18n-Internationalization" class="headerlink" title="Flask-babel을 통한 국제화i18n(Internationalization)"></a>Flask-babel을 통한 국제화i18n(Internationalization)</h2><h3 id="Flask-Babel"><a href="#Flask-Babel" class="headerlink" title="Flask-Babel"></a>Flask-Babel</h3><p>Flask-Babel은 플라스크의 i18n, l10n을 지원하는 익스텐션입니다. 날짜 형식, 타임존과 관련한 기능을 가지고 있으며, gettext를 통한 번역을 가능케 합니다.</p>
+<p>저는 히어박스의 영문, 중문, 일문 버전 웹사이트를 만들기 위해 Flask-Babel을 사용했습니다.</p>
+<ul>
+<li>i18n(Internationalization) : 국제화, internationalization의 줄임말로 첫자리 알파벳 i 와 전체 글자 수 18자리 끝자리 알파벳 n을 사용하여 i18n이라고 부릅니다. </li>
+<li>l10n(Localization) : 현지화, localization의 줄임말로 첫자리 알파벳 l과 전체 글자 수 10자리 끝자리 알파벳 n을 사용하여 l10n이라고 부릅니다.</li>
+<li><a href="https://ko.wikipedia.org/wiki/%EA%B5%AD%EC%A0%9C%ED%99%94%EC%99%80_%EC%A7%80%EC%97%AD%ED%99%94" target="_blank" rel="noopener">국제화와 지역화 - 위키피디아</a></li>
+</ul>
+<p>본 글에서는 i18n과 관련한 내용만 다루니 참고 바랍니다.</p>
+<hr>
+<h3 id="바벨-4단계"><a href="#바벨-4단계" class="headerlink" title="바벨 4단계"></a>바벨 4단계</h3><ul>
+<li>1단계 : 바벨 설치, 설정</li>
+<li>2단계 : 변환될 문자열 선별, 추출</li>
+<li>3단계 : 각 언어별 목록(추출된 문자열) 생성, 내용 보완</li>
+<li>4단계 : 카달로그 컴파일</li>
+</ul>
+<hr>
+<h3 id="바벨-1단계-설치"><a href="#바벨-1단계-설치" class="headerlink" title="바벨 1단계 - 설치"></a>바벨 1단계 - 설치</h3><p>설치는 pip를 통해 간단하게 할 수 있습니다.</p>
+<pre><code>$ pip install Flask-Babel
+</code></pre><p>참고로 Flask-Babel은 Jinja 2.5 버전 이상을 필요로합니다.</p>
+<h3 id="바벨-1단계-설정"><a href="#바벨-1단계-설정" class="headerlink" title="바벨 1단계 - 설정"></a>바벨 1단계 - 설정</h3><p>여타 플라스크 익스텐션을 사용하는 방법과 마찬가지로 Babel의 인스턴스를 생성해줍니다.</p>
+<h5 id="init-py"><a href="#init-py" class="headerlink" title="__init__.py"></a>__init__.py</h5><pre><code>from flask import Flask
+from flask.ext.babel import Babel
+
+app = Flask(__name__)
+babel = Babel(app)
+</code></pre><p>다음으로 자신의 웹사이트가 변환되기 원하는 언어 목록을 딕셔너리 형식으로 작성해줍니다. </p>
+<h5 id="config-py"><a href="#config-py" class="headerlink" title="config.py"></a>config.py</h5><pre><code>LANGUAGES = {
+    &apos;en&apos;: &apos;English&apos;,
+    &apos;ko&apos;: &apos;Korean&apos;,
+    &apos;ja&apos;: &apos;Japanese&apos;,
+    &apos;zh&apos;: &apos;Chinese&apos;
+}
+</code></pre><p>이제 어떤 언어를 사용할지 결정해주는 메소드를 생성합니다.</p>
+<h5 id="views-py"><a href="#views-py" class="headerlink" title="views.py"></a>views.py</h5><pre><code>from app import babel
+from config import LANGUAGES
+
+@babel.localeselector
+def get_locale():
+    return request.accept_languages.best_match(LANGUAGES.keys())
+</code></pre><p>babel의 localeselector데코레이터는 request가 수행되기 전에 미리 실행되어 사용자가 어떤 언어를 사용하는지 판단합니다.</p>
+<p>위 메소드 반환부의 request.accept_languages는 사용자 브라우저의 헤더 안에 있는 Accept-Languages의 정보를 가져옵니다. 그리고나서 best_match() 메소드를 통해 사용자가 가장 선호하는 언어를 알아냅니다.</p>
+<p>accept_languages() 메소드는 아래와 같이 구현돼 있습니다.</p>
+<h5 id="werkzeug-wrappers-py"><a href="#werkzeug-wrappers-py" class="headerlink" title="werkzeug/wrappers.py"></a>werkzeug/wrappers.py</h5><pre><code>class AcceptMixin(object):
+
+    @cached_property
+    def accept_languages(self):
+        return parse_accept_header(self.environ.get(&apos;HTTP_ACCEPT_LANGUAGE&apos;), LanguageAccept)
+</code></pre><hr>
+<p>이제 다시 Babel설정으로 돌아올 때가 되었습니다.<br>babel.cfg라는 이름의 새로운 파일을 생성하세요.</p>
+<h5 id="babel-cfg"><a href="#babel-cfg" class="headerlink" title="babel.cfg"></a>babel.cfg</h5><pre><code>[python: **.py]
+[jinja2: **/templates/**.html]
+extensions=jinja2.ext.autoescape,jinja2.ext.with_
+</code></pre><p>바벨이 어떤 파일을 검색할지 정해주는 부분으로 파이썬 파일과 html파일을 검색하도록 설정하였습니다. 마지막 줄은 바벨이 Jinja2 템플릿 안에서 번역될 문구를 찾게 하기 위한 익스텐션을 설정한 부분입니다. 이 글의 아래부분엣허 익스텐션이 하나 더 추가됩니다.</p>
+<p>이제 바벨과 관련된 설정은 어느정도 마무리가 되었습니다.</p>
+<h3 id="바벨-2단계-번역될-텍스트-선별"><a href="#바벨-2단계-번역될-텍스트-선별" class="headerlink" title="바벨 2단계 - 번역될 텍스트 선별"></a>바벨 2단계 - 번역될 텍스트 선별</h3><p>가장 지루하고도 빡센 작업이 될 것으로 예상합니다.(물론 저도 그랬구요) 제가 만든 코드로 예시를 보여드리겠습니다. </p>
+<p>템플릿 속 한글과 컨트롤러(views.py)에서 전달되는 한글을 모두 골라주시면 됩니다.</p>
+<p>gettext 메소드를 사용하여 번역되길 원하는 텍스트를 감싸줍니다.</p>
+<h5 id="views-py-1"><a href="#views-py-1" class="headerlink" title="views.py"></a>views.py</h5><pre><code>from hereboxweb import babel
+from config import LANGUAGES
+from flask.ext.babel import gettext
+
+@app.route(&apos;/alert_new_area&apos;, methods=[&apos;POST&apos;])
+def alert_new_area():
+    area = request.form.get(&apos;area&apos;)
+    contact = request.form.get(&apos;contact&apos;)
+    if not area:
+        return bad_request(gettext(u&apos;지역을 입력해주세요&apos;))
+    return redirect(url_for(&apos;alert_new_area&apos;))
+</code></pre><p>다음은 템플릿 부분에서 문자를 선별하는 작업입니다.<br>일반 문자열의 경우 변환되기 원하는 문자를  {{ _(' ') }} 사이에 놓아 줍니다.</p>
+<p>마지막 부분은 form을 사용하여 입력창을 만드는 경우 placeholder역시 지정 가능합니다.</p>
+<h5 id="login-html"><a href="#login-html" class="headerlink" title="login.html"></a>login.html</h5><pre><code>{% extends "base.html" %}
+{% block content %}
+        <div class="form-group">
+            <button type="submit">{{ _('로그인') }}</button>
+        </div>
+        <div class="form-group">
+            {{ form.email(placeholder=_("이메일 주소")) }}
+        </div>
+    {% endblock %}
+</code></pre><h3 id="바벨-2단계-지정-문자열-추출하기"><a href="#바벨-2단계-지정-문자열-추출하기" class="headerlink" title="바벨 2단계 - 지정 문자열 추출하기"></a>바벨 2단계 - 지정 문자열 추출하기</h3><p>pybabel 명령어를 이용하면 위에서 선택한 문자열을 손쉽게 가져올 수 있습니다. </p>
+<p>커맨드 창에 다음과 같이 명령어를 입력해주세요.</p>
+<pre><code>$(venv) pybabel extract -F babel.cfg -o messages.pot app
+</code></pre><p>그러고 나면 messages.pot 이라는 이름의 파일이 생성됩니다.</p>
+<h5 id="messages-pot"><a href="#messages-pot" class="headerlink" title="messages.pot"></a>messages.pot</h5><pre><code>#: hereboxweb/views.py:76
+msgid &quot;지역을 입력해주세요&quot;
+msgstr &quot;&quot;
+</code></pre><p>views.py에 있던 ‘지역을 입력해주세요’ 문자열을 가져온 것을 확인할 수 있습니다. 그런데 login.html에 있는 ‘로그인’과 ‘이메일 주소’는 가져오지 못했군요. </p>
+<p>이 문제를 알아보려고 여러가지 테스트를 해본 결과 {% block body %} {% endblock %} 내부에 지정된 문자열은 가져오지 못한다는 것을 알게 되었고,<br>해결 방법은 바벨 설정파일에 webassets.ext.jinja2.AssetsExtension 추가해주면 됩니다.</p>
+<h5 id="babel-cfg-1"><a href="#babel-cfg-1" class="headerlink" title="babel.cfg"></a>babel.cfg</h5><pre><code>[python: **.py]
+[jinja2: **/templates/**.html]
+extensions=jinja2.ext.autoescape,jinja2.ext.with_,webassets.ext.jinja2.AssetsExtension
+</code></pre><p>바벨 설정 파일 변경 후 다시 커맨드창에 추출 명령어를 입력합니다.</p>
+<pre><code>$(venv) pybabel extract -F babel.cfg -o messages.pot app
+</code></pre><h5 id="messages-pot-1"><a href="#messages-pot-1" class="headerlink" title="messages.pot"></a>messages.pot</h5><pre><code>#: hereboxweb/views.py:76
+msgid &quot;지역을 입력해주세요&quot;
+msgstr &quot;&quot;
+
+#: hereboxweb/auth/templates/login.html:4
+msgid &quot;로그인&quot;
+msgstr &quot;&quot;
+
+#: hereboxweb/auth/templates/login.html:7
+msgid &quot;이메일 주소&quot;
+msgstr &quot;&quot;
+</code></pre><p>원하는 문자열이 모두 있네요.</p>
+<h3 id="바벨-3단계-언어별-일본어-중국어-영어-목록-생성하기"><a href="#바벨-3단계-언어별-일본어-중국어-영어-목록-생성하기" class="headerlink" title="바벨 3단계 - 언어별(일본어, 중국어, 영어) 목록 생성하기"></a>바벨 3단계 - 언어별(일본어, 중국어, 영어) 목록 생성하기</h3><pre><code>$(venv) pybabel init -i messages.pot -d app/translations -l en
+$(venv) pybabel init -i messages.pot -d app/translations -l ja
+$(venv) pybabel init -i messages.pot -d app/translations -l zh
+</code></pre><p>입력을 하고 나면 translations 폴더안에 en, ja, zh 라는 이름으로 폴더가 생성됩니다. 각각의 폴더안에는 LC_MESSAGES 폴더가 또 있고,<br>그 안에 messages.mo. messages.po 파일이 있습니다.<br><img src="/images/flask-babel_02.png" alt="폴더 구조"></p>
+<p>영어 폴더의 messages.po 파일을 보면</p>
+<h5 id="app-translations-en-LC-MESSAGES-messages-po"><a href="#app-translations-en-LC-MESSAGES-messages-po" class="headerlink" title="app/translations/en/LC_MESSAGES/messages.po"></a>app/translations/en/LC_MESSAGES/messages.po</h5><pre><code>#: hereboxweb/views.py:76
+msgid &quot;지역을 입력해주세요&quot;
+msgstr &quot;&quot;
+
+#: hereboxweb/auth/templates/login.html:4
+msgid &quot;로그인&quot;
+msgstr &quot;&quot;
+
+#: hereboxweb/auth/templates/login.html:7
+msgid &quot;이메일 주소&quot;
+msgstr &quot;&quot;
+</code></pre><p>messages.pot과 동일한 내용이 있습니다. 일본어 폴더, 중국어 폴더 역시 마찬가지 입니다. 이제 해야할 일은 각각의 한국어 문자열에 대응하는 각국 언어를 넣어줘야합니다.</p>
+<h5 id="app-translations-en-LC-MESSAGES-messages-po-1"><a href="#app-translations-en-LC-MESSAGES-messages-po-1" class="headerlink" title="app/translations/en/LC_MESSAGES/messages.po"></a>app/translations/en/LC_MESSAGES/messages.po</h5><pre><code>#: hereboxweb/views.py:76
+msgid &quot;지역을 입력해주세요&quot;
+msgstr &quot;Please enter your location.&quot;
+
+#: hereboxweb/auth/templates/login.html:4
+msgid &quot;로그인&quot;
+msgstr &quot;SignIn&quot;
+
+#: hereboxweb/auth/templates/login.html:7
+msgid &quot;이메일 주소&quot;
+msgstr &quot;Email Address&quot;
+</code></pre><h3 id="바벨-4단계-언어목록-컴파일"><a href="#바벨-4단계-언어목록-컴파일" class="headerlink" title="바벨 4단계 - 언어목록 컴파일"></a>바벨 4단계 - 언어목록 컴파일</h3><p>이제 완성된 언어 목록을 컴파일 하면 됩니다. 아래 명령어를 입력하면 .po 파일을 가지고 .mo 파일을 만들어냅니다.</p>
+<pre><code>$(venv) pybabel compile -d app/translations
+</code></pre><p>.mo 파일은 변환된 문자열을 가지고 있는 파일입니다. 이제 바벨이 성공적으로 변환된 문자열을 가져올 수 있습니다.</p>
+<hr>
+<h3 id="테스트"><a href="#테스트" class="headerlink" title="테스트"></a>테스트</h3><p>저는 바벨이 잘 되는지 테스트하기 위해 크롬 익스텐션 ‘Quick Language Switcher’를 설치했습니다. 익스텐션 설치 없이 확인하는 방법은 다음과 같습니다.</p>
+<p><img src="/images/flask-babel_01.png" alt="Quick Language Switcher"></p>
+<h5 id="views-py-2"><a href="#views-py-2" class="headerlink" title="views.py"></a>views.py</h5><pre><code>@babel.localeselector
+def get_locale():
+    return &apos;en&apos;  
+</code></pre><p>get_locale() 메소드의 반환값을 변경하여 쉽게 테스트 할 수 있습니다.</p>
+<h3 id="새롭게-추가된-문자열-반영하기"><a href="#새롭게-추가된-문자열-반영하기" class="headerlink" title="새롭게 추가된 문자열 반영하기"></a>새롭게 추가된 문자열 반영하기</h3><p>새롭게 기능을 추가하거나, 템플릿의 내용을 변경하는 경우 매번 다음과 같은 방법으로 변경된 내용을 업데이트 할 수 있습니다.</p>
+<pre><code>$(venv) pybabel extract -F babel.cfg -o messages.pot app
+$(venv) pybabel update -i messages.pot -d app/translations
+$(venv) pybabel compile -d app/translations
+</code></pre><p>위 명렁어 3개를 보시면 extract로 새로 추가된 문자열을 messages.pot에 추가하고, update한 후 compile하는 것을 볼 수 있습니다.</p>
+<h5 id="fabfile-py"><a href="#fabfile-py" class="headerlink" title="fabfile.py"></a>fabfile.py</h5><pre><code>def babeling():
+    local(&apos;pybabel extract -F babel.cfg -o messages.pot app&apos;)
+    local(&apos;pybabel update -i messages.pot -d app/translations&apos;)
+    local(&apos;pybabel compile -d app/translations&apos;)
+</code></pre><p>매번 3줄씩 치기 귀찮은 경우에는 fabric에 넣어두고 명령어 하나로 해결할 수 있습니다.</p>
+<pre><code>$(venv) fab babeling
+</code></pre><hr>
+<h3 id="실제-적용"><a href="#실제-적용" class="headerlink" title="실제 적용"></a>실제 적용</h3><h5 id="views-py-3"><a href="#views-py-3" class="headerlink" title="views.py"></a>views.py</h5><pre><code>@babel.localeselector
+def get_locale():
+    return request.accept_languages.best_match(LANGUAGES.keys())
+</code></pre><p>get_locale()을 정상화한 후 웹사이트에 접속해도 브라우저 내 언어 정보가 한국어로 돼 있을 가능성이 높기에 별다른 변화는 없을 것입니다.</p>
+<p>저는 서비스 이용과 관련하여 사용자에게 언어 선택을 할 수 있도록 하기 위해 네비게이션바에 선택창을 넣어주었고, 사용자가 선택한 언어정보를 쿠키에 저장했습니다.</p>
+<h5 id="nav-html"><a href="#nav-html" class="headerlink" title="nav.html"></a>nav.html</h5><pre><code>&lt;select id=&quot;language&quot; onchange=&quot;setCookie(&apos;language&apos;, this.value, 10)&quot;&gt;
+    &lt;option value=&quot;ko&quot;&gt;Korean&lt;/option&gt;
+    &lt;option value=&quot;ja&quot;&gt;Japanese&lt;/option&gt;
+    &lt;option value=&quot;en&quot;&gt;English&lt;/option&gt;
+    &lt;option value=&quot;zh&quot;&gt;Chinese&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;script&gt;
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = &quot;expires=&quot;+ d.toUTCString();
+    document.cookie = cname + &quot;=&quot; + cvalue + &quot;;&quot; + expires + &quot;;path=/&quot;;
+    window.location.reload();
+}
+&lt;/script&gt;
+</code></pre><p>그리고나서 get_locale() 메소드를 마지막으로 다음과 같이 수정했습니다. 쿠키에 language 정보가 있는 경우 사용자가 선택한 언어를 반환하고, 없는경우 브라우저가 가지고 있는 언어정보를 반환합니다. </p>
+<pre><code>@babel.localeselector
+def get_locale():
+    try:
+        if request.cookies[&apos;language&apos;]:
+            return request.cookies[&apos;language&apos;]
+    except:
+        return request.accept_languages.best_match(LANGUAGES.keys())
+</code></pre><h3 id="추가-내용"><a href="#추가-내용" class="headerlink" title="추가 내용"></a>추가 내용</h3><p>바벨 추가 후 서비스를 시작하려 하는데 에러메세지가 나오게 됐다. 바벨 적용한 코드 부분에서 발생한 문제로 추측하고 변경한 부분을 살펴보던 중 한 가지 더 알게됐다.<br> {{ _('') }}  따옴표 안에 들어가는 내용에 %(퍼센트)가 입력되면 오류가 난다는 사실을…  </p>
+<p><a href="http://stackoverflow.com/questions/3728272/how-can-i-escape-character-in-a-gettext-string" target="_blank" rel="noopener">gettext안에 % 사용하는방법</a></p>
+<p>%를 쓰고 싶을 때는 %% 이렇게 써주시면 아무 문제없이 사용할 수 있습니다.. 너무 간단해서 당황했습니다.</p>
+<pre><code>&lt;div&gt;
+    &lt;p&gt;{{ _('히어박스는 보관 기간에 따른 할인율을 적용하고 있습니다. (자동결제 제외)') }}&lt;/p&gt;
+    &lt;p&gt;{{ _('6~8개월 : 총 보관 비용의 5% 할인') }}&lt;/p&gt;
+
+    &lt;p&gt;{{ _('6~8개월 : 총 보관 비용의 5%% 할인') }}&lt;/p&gt;
+&lt;/div&gt;  
+</code></pre><h3 id="마무리"><a href="#마무리" class="headerlink" title="마무리"></a>마무리</h3><p>대부분의 내용이 Flask-Babel 공식홈페이지와 Miguel님의 블로그와 동일, 유사합니다.<br>한글로 작성한다는 점에 의의를 두었고, {% block %}{% endblock %} 내부 텍스트를 가져오지 못하는 부분과 쿠키에 저장하고, get_locale()에 추가한 부분은 직접 작성한 내용입니다.</p>
+<h3 id="참고사이트-목록"><a href="#참고사이트-목록" class="headerlink" title="참고사이트 목록"></a>참고사이트 목록</h3><ul>
+<li><a href="https://pythonhosted.org/Flask-Babel/" target="_blank" rel="noopener">Flask-Babel</a></li>
+<li><a href="https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xiv-i18n-and-l10n" target="_blank" rel="noopener">Miguel Blog, Part 14-I18n and L10n</a></li>
+</ul>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Archive</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Flask-babel을-통한-국제화i18n-Internationalization"><span class="toc-number">1.</span> <span class="toc-text">Flask-babel을 통한 국제화i18n(Internationalization)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Flask-Babel"><span class="toc-number">1.1.</span> <span class="toc-text">Flask-Babel</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#바벨-4단계"><span class="toc-number">1.2.</span> <span class="toc-text">바벨 4단계</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#바벨-1단계-설치"><span class="toc-number">1.3.</span> <span class="toc-text">바벨 1단계 - 설치</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#바벨-1단계-설정"><span class="toc-number">1.4.</span> <span class="toc-text">바벨 1단계 - 설정</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#init-py"><span class="toc-number">1.4.0.1.</span> <span class="toc-text">__init__.py</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#config-py"><span class="toc-number">1.4.0.2.</span> <span class="toc-text">config.py</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#views-py"><span class="toc-number">1.4.0.3.</span> <span class="toc-text">views.py</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#werkzeug-wrappers-py"><span class="toc-number">1.4.0.4.</span> <span class="toc-text">werkzeug&#x2F;wrappers.py</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#babel-cfg"><span class="toc-number">1.4.0.5.</span> <span class="toc-text">babel.cfg</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#바벨-2단계-번역될-텍스트-선별"><span class="toc-number">1.5.</span> <span class="toc-text">바벨 2단계 - 번역될 텍스트 선별</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#views-py-1"><span class="toc-number">1.5.0.1.</span> <span class="toc-text">views.py</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#login-html"><span class="toc-number">1.5.0.2.</span> <span class="toc-text">login.html</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#바벨-2단계-지정-문자열-추출하기"><span class="toc-number">1.6.</span> <span class="toc-text">바벨 2단계 - 지정 문자열 추출하기</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#messages-pot"><span class="toc-number">1.6.0.1.</span> <span class="toc-text">messages.pot</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#babel-cfg-1"><span class="toc-number">1.6.0.2.</span> <span class="toc-text">babel.cfg</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#messages-pot-1"><span class="toc-number">1.6.0.3.</span> <span class="toc-text">messages.pot</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#바벨-3단계-언어별-일본어-중국어-영어-목록-생성하기"><span class="toc-number">1.7.</span> <span class="toc-text">바벨 3단계 - 언어별(일본어, 중국어, 영어) 목록 생성하기</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#app-translations-en-LC-MESSAGES-messages-po"><span class="toc-number">1.7.0.1.</span> <span class="toc-text">app&#x2F;translations&#x2F;en&#x2F;LC_MESSAGES&#x2F;messages.po</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#app-translations-en-LC-MESSAGES-messages-po-1"><span class="toc-number">1.7.0.2.</span> <span class="toc-text">app&#x2F;translations&#x2F;en&#x2F;LC_MESSAGES&#x2F;messages.po</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#바벨-4단계-언어목록-컴파일"><span class="toc-number">1.8.</span> <span class="toc-text">바벨 4단계 - 언어목록 컴파일</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#테스트"><span class="toc-number">1.9.</span> <span class="toc-text">테스트</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#views-py-2"><span class="toc-number">1.9.0.1.</span> <span class="toc-text">views.py</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#새롭게-추가된-문자열-반영하기"><span class="toc-number">1.10.</span> <span class="toc-text">새롭게 추가된 문자열 반영하기</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#fabfile-py"><span class="toc-number">1.10.0.1.</span> <span class="toc-text">fabfile.py</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#실제-적용"><span class="toc-number">1.11.</span> <span class="toc-text">실제 적용</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#views-py-3"><span class="toc-number">1.11.0.1.</span> <span class="toc-text">views.py</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#nav-html"><span class="toc-number">1.11.0.2.</span> <span class="toc-text">nav.html</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#추가-내용"><span class="toc-number">1.12.</span> <span class="toc-text">추가 내용</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#마무리"><span class="toc-number">1.13.</span> <span class="toc-text">마무리</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#참고사이트-목록"><span class="toc-number">1.14.</span> <span class="toc-text">참고사이트 목록</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://urangurang.github.io/flask-babel/" target="_blank" rel="noopener"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://urangurang.github.io/flask-babel/&text=Flask-babel을 사용해 홈페이지 국제화를 시도해보자" target="_blank" rel="noopener"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://urangurang.github.io/flask-babel/&title=Flask-babel을 사용해 홈페이지 국제화를 시도해보자" target="_blank" rel="noopener"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Flask-babel을 사용해 홈페이지 국제화를 시도해보자&body=Check out this article: https://urangurang.github.io/flask-babel/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2020 urangurang
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Archive</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-158081532-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang=ko>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1, minimum-scale=0.8" />
+    
+    <meta name="description" content="우선 오늘 다룰 Flask-Assets이 무엇인지 먼저 알아봅시다.Flask-Assets은 webassets을 우리가 만들고 있는 어플리케이션에 결합시킬 수 있도록 돕는 것이라 합니다.  그렇다면 webassets은 뭘까요? 구글에 검색해보니 Github 주소가 나오네요. 오픈소스인가 봅니다… webassets - Asset management for Py">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flask-Assets 사용 방법 (1)">
+<meta property="og:url" content="https://urangurang.github.io/flask-assets-1/index.html">
+<meta property="og:site_name" content="urangurang">
+<meta property="og:description" content="우선 오늘 다룰 Flask-Assets이 무엇인지 먼저 알아봅시다.Flask-Assets은 webassets을 우리가 만들고 있는 어플리케이션에 결합시킬 수 있도록 돕는 것이라 합니다.  그렇다면 webassets은 뭘까요? 구글에 검색해보니 Github 주소가 나오네요. 오픈소스인가 봅니다… webassets - Asset management for Py">
+<meta property="og:locale" content="ko_KR">
+<meta property="article:published_time" content="2017-03-26T15:00:00.000Z">
+<meta property="article:modified_time" content="2020-02-12T15:25:50.000Z">
+<meta property="article:author" content="urangurang">
+<meta property="article:tag" content="flask">
+<meta property="article:tag" content="translation">
+<meta property="article:tag" content="assets">
+<meta name="twitter:card" content="summary">
+    
+
+    
+        
+            
+                <link rel="shortcut icon" href="/images/favicon.ico">
+            
+        
+        
+            
+                <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+            
+        
+        
+            
+                <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+            
+        
+    
+    <!-- title -->
+    <title>Flask-Assets 사용 방법 (1)</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Archive</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/flask-assets-2/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/flask-methods/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://urangurang.github.io/flask-assets-1/" target="_blank" rel="noopener"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://urangurang.github.io/flask-assets-1/&text=Flask-Assets 사용 방법 (1)" target="_blank" rel="noopener"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://urangurang.github.io/flask-assets-1/&title=Flask-Assets 사용 방법 (1)" target="_blank" rel="noopener"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Flask-Assets 사용 방법 (1)&body=Check out this article: https://urangurang.github.io/flask-assets-1/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#webassets-Asset-management-for-Python"><span class="toc-number">1.</span> <span class="toc-text">webassets - Asset management for Python</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#사용법"><span class="toc-number">2.</span> <span class="toc-text">사용법</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bundles-번들들-묶인-파일들-사용하기"><span class="toc-number">3.</span> <span class="toc-text">Bundles(번들들, 묶인 파일들) 사용하기</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#참고문서"><span class="toc-number">3.1.</span> <span class="toc-text">참고문서</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Flask-Assets 사용 방법 (1)
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">urangurang</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2017-03-26T15:00:00.000Z" itemprop="datePublished">2017-03-27</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-caret-down"></i>
+        <a class="category-link" href="/categories/python/">python</a>, <a class="category-link" href="/categories/python/flask/">flask</a>
+    </div>
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/assets/" rel="tag">assets</a>, <a class="tag-link" href="/tags/flask/" rel="tag">flask</a>, <a class="tag-link" href="/tags/translation/" rel="tag">translation</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>우선 오늘 다룰 Flask-Assets이 무엇인지 먼저 알아봅시다.<br>Flask-Assets은 webassets을 우리가 만들고 있는 어플리케이션에 결합시킬 수 있도록 돕는 것이라 합니다. </p>
+<p>그렇다면 <a href="https://github.com/miracle2k/webassets" target="_blank" rel="noopener">webassets</a>은 뭘까요? 구글에 검색해보니 Github 주소가 나오네요. 오픈소스인가 봅니다…</p>
+<h2 id="webassets-Asset-management-for-Python"><a href="#webassets-Asset-management-for-Python" class="headerlink" title="webassets - Asset management for Python"></a>webassets - Asset management for Python</h2><p>webassets은 일반적으로 웹 어플리케이션의 자산(CSS, JavaScript 파일 등)을 관리합니다. CSS, JS 파일 등을 하나로 합치고 minified 할 수도 있습니다. 그 밖에도 다양한 필터를 지원하고, CoffeScript, Sass 등 다른 컴파일러와도 함께 사용할 수 있습니다. 라고 하네요.</p>
+<p>일단 홈페이지에 사용될 CSS, JS 파일을 관리할 수 있다는 것을 알았습니다.</p>
+<p>설치방법은 </p>
+<pre><code>$ pip install Flask-Assets
+</code></pre><p>OR    </p>
+<pre><code>$ easy_install Flask-Assets
+</code></pre><h2 id="사용법"><a href="#사용법" class="headerlink" title="사용법"></a>사용법</h2><p>Environment 인스턴스에 assets을 등록시키기</p>
+<pre><code>from flask import Flask
+from flask_assets import Environment, Bundle
+
+app = Flask(__name__)
+assets = Environment(app)
+
+js = Bundle(&apos;jquery.js&apos;, &apos;base.js&apos;, &apos;widgets.js&apos;, filters=&apos;jsmin&apos;,output=&apos;gen/packed.js&apos;)
+
+assets.register(&apos;js_all&apos;, js)
+js.build()
+</code></pre><p>4, app == Flaks Application 인스턴스 생성</p>
+<p>5, Environment 인스턴스 생성</p>
+<p>7, <a href="http://webassets.readthedocs.io/en/latest/bundles.html" target="_blank" rel="noopener">Bundle</a>이라는 아이는 webassets.py에 속한 클래스입니다. Bundle은 미디어 파일 그룹을 구성하는 데 사용됩니다. 어떤 필터를 적용할지 저장위치를 선택할 수도 있구요.</p>
+<p>다시 7번째 줄을 보면 jquery.js, base.js, widgets.js 3개의 파일을 jsmin이라는 필터를 사용하여 gen/ 경로에 packed.js로 만들내도록 지정합니다. jsmin 필터는 자바스크립트 파일을 경량화시켜줍니다. 그리고 파일 개수를 3개에서 하나로 줄여 request수를 줄여 더욱 빠른 로딩을 할 수 있도록 도와줍니다.</p>
+<p>Bundle의 인자를 좀 더 살펴보겠습니다.<br>filters = 1개 이상 적용 가능, 필터 미적용시 파일들이 merge되기만 함.<br>output = output file의 이름과 경로. source files이 저장됨.</p>
+<p>9, assets인스턴스에 방금 만든 Bundle 인스턴스를 js_all이라는 이름으로 register메소드를 사용하여 등록하고 있습니다.</p>
+<p>10, Bundle 인스턴스를 build() 하면 미리 정해둔 output의 위치에 파일이 생성됩니다. 파일을 생성하는 다른 방법으로는 <a href="http://webassets.readthedocs.io/en/latest/script.html" target="_blank" rel="noopener">커맨드라인</a>을 사용하는 방식이 있습니다. 링크 참조.</p>
+<h2 id="Bundles-번들들-묶인-파일들-사용하기"><a href="#Bundles-번들들-묶인-파일들-사용하기" class="headerlink" title="Bundles(번들들, 묶인 파일들) 사용하기"></a>Bundles(번들들, 묶인 파일들) 사용하기</h2><p>방금 선언한 assets을 아래와 같은 방식으로 사용하시면 됩니다.</p>
+<pre><code>{% assets "js_all" %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+</code></pre><h3 id="참고문서"><a href="#참고문서" class="headerlink" title="참고문서"></a>참고문서</h3><ul>
+<li><a href="https://flask-assets.readthedocs.io/en/latest/" target="_blank" rel="noopener">Flask-Assets 공식 문서</a></li>
+<li><a href="https://webassets.readthedocs.io/en/latest/" target="_blank" rel="noopener">webassets 공식 문서</a></li>
+<li><a href="https://urangurang.github.io/python/flask/flask-assets-2/">다음 글 - flask-assets 사용 방법 2</a></li>
+</ul>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Archive</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#webassets-Asset-management-for-Python"><span class="toc-number">1.</span> <span class="toc-text">webassets - Asset management for Python</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#사용법"><span class="toc-number">2.</span> <span class="toc-text">사용법</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bundles-번들들-묶인-파일들-사용하기"><span class="toc-number">3.</span> <span class="toc-text">Bundles(번들들, 묶인 파일들) 사용하기</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#참고문서"><span class="toc-number">3.1.</span> <span class="toc-text">참고문서</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://urangurang.github.io/flask-assets-1/" target="_blank" rel="noopener"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://urangurang.github.io/flask-assets-1/&text=Flask-Assets 사용 방법 (1)" target="_blank" rel="noopener"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://urangurang.github.io/flask-assets-1/&title=Flask-Assets 사용 방법 (1)" target="_blank" rel="noopener"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Flask-Assets 사용 방법 (1)&body=Check out this article: https://urangurang.github.io/flask-assets-1/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2020 urangurang
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Archive</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-158081532-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+

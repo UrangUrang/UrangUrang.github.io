@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang=ko>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1, minimum-scale=0.8" />
+    
+    <meta name="description" content="http - HTTP를 다루기 위한 패키지 출처 : https:&#x2F;&#x2F;docs.python.org&#x2F;3&#x2F;library&#x2F;http.html 코드 : https:&#x2F;&#x2F;github.com&#x2F;python&#x2F;cpython&#x2F;blob&#x2F;3.7&#x2F;Lib&#x2F;http&#x2F;__init__.py  파이썬 코드 읽어보기 두 번째 시리즈는 http입니다.  http 패키지는 다음과 같은 모듈을 포함하고">
+<meta property="og:type" content="article">
+<meta property="og:title" content="파이썬 코드 읽어보기 - http&#x2F;__init__.py">
+<meta property="og:url" content="https://urangurang.github.io/code-reading-http-init/index.html">
+<meta property="og:site_name" content="urangurang">
+<meta property="og:description" content="http - HTTP를 다루기 위한 패키지 출처 : https:&#x2F;&#x2F;docs.python.org&#x2F;3&#x2F;library&#x2F;http.html 코드 : https:&#x2F;&#x2F;github.com&#x2F;python&#x2F;cpython&#x2F;blob&#x2F;3.7&#x2F;Lib&#x2F;http&#x2F;__init__.py  파이썬 코드 읽어보기 두 번째 시리즈는 http입니다.  http 패키지는 다음과 같은 모듈을 포함하고">
+<meta property="og:locale" content="ko_KR">
+<meta property="article:published_time" content="2019-09-09T06:46:54.000Z">
+<meta property="article:modified_time" content="2020-02-10T16:24:05.000Z">
+<meta property="article:author" content="urangurang">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="HTTP">
+<meta name="twitter:card" content="summary">
+    
+
+    
+        
+            
+                <link rel="shortcut icon" href="/images/favicon.ico">
+            
+        
+        
+            
+                <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+            
+        
+        
+            
+                <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+            
+        
+    
+    <!-- title -->
+    <title>파이썬 코드 읽어보기 - http/__init__.py</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Archive</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/child-care-leave-differences-between-korea-japan/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/code-reading-json-decoder-scanner/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://urangurang.github.io/code-reading-http-init/" target="_blank" rel="noopener"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://urangurang.github.io/code-reading-http-init/&text=파이썬 코드 읽어보기 - http/__init__.py" target="_blank" rel="noopener"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://urangurang.github.io/code-reading-http-init/&title=파이썬 코드 읽어보기 - http/__init__.py" target="_blank" rel="noopener"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=파이썬 코드 읽어보기 - http/__init__.py&body=Check out this article: https://urangurang.github.io/code-reading-http-init/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#http-HTTP를-다루기-위한-패키지"><span class="toc-number">1.</span> <span class="toc-text">http - HTTP를 다루기 위한 패키지</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        파이썬 코드 읽어보기 - http/__init__.py
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">urangurang</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2019-09-09T06:46:54.000Z" itemprop="datePublished">2019-09-09</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-caret-down"></i>
+        <a class="category-link" href="/categories/python/">python</a>
+    </div>
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/HTTP/" rel="tag">HTTP</a>, <a class="tag-link" href="/tags/python/" rel="tag">python</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="http-HTTP를-다루기-위한-패키지"><a href="#http-HTTP를-다루기-위한-패키지" class="headerlink" title="http - HTTP를 다루기 위한 패키지"></a>http - HTTP를 다루기 위한 패키지</h1><ul>
+<li>출처 : <a href="https://docs.python.org/3/library/http.html" target="_blank" rel="noopener">https://docs.python.org/3/library/http.html</a></li>
+<li>코드 : <a href="https://github.com/python/cpython/blob/3.7/Lib/http/__init__.py" target="_blank" rel="noopener">https://github.com/python/cpython/blob/3.7/Lib/http/__init__.py</a></li>
+</ul>
+<p><strong>파이썬 코드 읽어보기</strong> 두 번째 시리즈는 <code>http</code>입니다. </p>
+<p><code>http</code> 패키지는 다음과 같은 모듈을 포함하고 있습니다.</p>
+<ul>
+<li><code>http.client</code></li>
+<li><code>http.server</code></li>
+<li><code>http.cookies</code> </li>
+<li><code>http.cookiejar</code> </li>
+</ul>
+<p>http 모듈에는 HTTP 상태 코드와 관련 메시지가 정의돼 있습니다.</p>
+<p><code>http/__init__.py</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HTTPStatus</span><span class="params">(IntEnum)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__new__</span><span class="params">(cls, value, phrase, description=<span class="string">''</span>)</span>:</span></span><br><span class="line">        obj = int.__new__(cls, value)</span><br><span class="line">        obj._value_ = value</span><br><span class="line"></span><br><span class="line">        obj.phrase = phrase</span><br><span class="line">        obj.description = description</span><br><span class="line">        <span class="keyword">return</span> obj</span><br><span class="line">    ...</span><br><span class="line">    <span class="comment"># success</span></span><br><span class="line">    OK = <span class="number">200</span>, <span class="string">'OK'</span>, <span class="string">'Request fulfilled, document follows'</span></span><br><span class="line">    CREATED = <span class="number">201</span>, <span class="string">'Created'</span>, <span class="string">'Document created, URL follows'</span></span><br></pre></td></tr></table></figure>
+<p> <code>__new__()</code> 가 무엇인지 부터 한 번 알아보겠습니다.</p>
+<p><code>builtins.py</code> </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span> <span class="comment"># known special case of object.__init__</span></span><br><span class="line">    <span class="string">""" Initialize self.  See help(type(self)) for accurate signature. """</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@staticmethod # known case of __new__</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__new__</span><span class="params">(cls, *more)</span>:</span> <span class="comment"># known special case of object.__new__</span></span><br><span class="line">    <span class="string">""" Create and return a new object.  See help(type) for accurate signature. """</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<p><a href="https://docs.python.org/ko/3.7/reference/datamodel.html#basic-customization" target="_blank" rel="noopener">https://docs.python.org/ko/3.7/reference/datamodel.html#basic-customization</a></p>
+<p><code>__new__()</code> 메소드는 새로운 오브젝트를 생성하고 반환합니다. 그 후 <code>__init__()</code> 메소드가 인스턴스 자체를 초기화 한다. 실행되는 순서는 <code>__new__()</code> -&gt; <code>__init__()</code> 과 같습니다.</p>
+<p><code>__init__.py</code> 는 이정도로 하고 다음 파일 <code>client.py</code> 로 넘어가겠습니다.</p>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Archive</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#http-HTTP를-다루기-위한-패키지"><span class="toc-number">1.</span> <span class="toc-text">http - HTTP를 다루기 위한 패키지</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://urangurang.github.io/code-reading-http-init/" target="_blank" rel="noopener"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://urangurang.github.io/code-reading-http-init/&text=파이썬 코드 읽어보기 - http/__init__.py" target="_blank" rel="noopener"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://urangurang.github.io/code-reading-http-init/&title=파이썬 코드 읽어보기 - http/__init__.py" target="_blank" rel="noopener"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=파이썬 코드 읽어보기 - http/__init__.py&body=Check out this article: https://urangurang.github.io/code-reading-http-init/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2020 urangurang
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Archive</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-158081532-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+

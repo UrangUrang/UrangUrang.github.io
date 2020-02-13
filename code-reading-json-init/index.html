@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang=ko>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1, minimum-scale=0.8" />
+    
+    <meta name="description" content="json - JSON encoder and decoder 출처 : https:&#x2F;&#x2F;docs.python.org&#x2F;3&#x2F;library&#x2F;json.html 코드 : https:&#x2F;&#x2F;github.com&#x2F;python&#x2F;cpython&#x2F;blob&#x2F;3.7&#x2F;Lib&#x2F;json&#x2F;__init__.py  파이썬 코드 읽어보기 첫 번째 시리즈는 json입니다.  import json 개발 중">
+<meta property="og:type" content="article">
+<meta property="og:title" content="파이썬 코드 읽어보기 - json&#x2F;__init__.py">
+<meta property="og:url" content="https://urangurang.github.io/code-reading-json-init/index.html">
+<meta property="og:site_name" content="urangurang">
+<meta property="og:description" content="json - JSON encoder and decoder 출처 : https:&#x2F;&#x2F;docs.python.org&#x2F;3&#x2F;library&#x2F;json.html 코드 : https:&#x2F;&#x2F;github.com&#x2F;python&#x2F;cpython&#x2F;blob&#x2F;3.7&#x2F;Lib&#x2F;json&#x2F;__init__.py  파이썬 코드 읽어보기 첫 번째 시리즈는 json입니다.  import json 개발 중">
+<meta property="og:locale" content="ko_KR">
+<meta property="article:published_time" content="2019-08-24T08:42:06.000Z">
+<meta property="article:modified_time" content="2020-02-10T14:45:58.000Z">
+<meta property="article:author" content="urangurang">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="JSON">
+<meta name="twitter:card" content="summary">
+    
+
+    
+        
+            
+                <link rel="shortcut icon" href="/images/favicon.ico">
+            
+        
+        
+            
+                <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+            
+        
+        
+            
+                <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+            
+        
+    
+    <!-- title -->
+    <title>파이썬 코드 읽어보기 - json/__init__.py</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Archive</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/code-reading-json-tool/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/child-care-leave-3-month/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://urangurang.github.io/code-reading-json-init/" target="_blank" rel="noopener"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://urangurang.github.io/code-reading-json-init/&text=파이썬 코드 읽어보기 - json/__init__.py" target="_blank" rel="noopener"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://urangurang.github.io/code-reading-json-init/&title=파이썬 코드 읽어보기 - json/__init__.py" target="_blank" rel="noopener"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=파이썬 코드 읽어보기 - json/__init__.py&body=Check out this article: https://urangurang.github.io/code-reading-json-init/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#json-JSON-encoder-and-decoder"><span class="toc-number">1.</span> <span class="toc-text">json - JSON encoder and decoder</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#init-py"><span class="toc-number">1.0.1.</span> <span class="toc-text">__init__.py</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        파이썬 코드 읽어보기 - json/__init__.py
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">urangurang</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2019-08-24T08:42:06.000Z" itemprop="datePublished">2019-08-24</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-caret-down"></i>
+        <a class="category-link" href="/categories/python/">python</a>
+    </div>
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/JSON/" rel="tag">JSON</a>, <a class="tag-link" href="/tags/python/" rel="tag">python</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="json-JSON-encoder-and-decoder"><a href="#json-JSON-encoder-and-decoder" class="headerlink" title="json - JSON encoder and decoder"></a>json - JSON encoder and decoder</h1><ul>
+<li>출처 : <a href="https://docs.python.org/3/library/json.html" target="_blank" rel="noopener">https://docs.python.org/3/library/json.html</a></li>
+<li>코드 : <a href="https://github.com/python/cpython/blob/3.7/Lib/json/__init__.py" target="_blank" rel="noopener">https://github.com/python/cpython/blob/3.7/Lib/json/__init__.py</a></li>
+</ul>
+<p><strong>파이썬 코드 읽어보기</strong> 첫 번째 시리즈는 <code>json</code>입니다. </p>
+<p><code>import json</code></p>
+<p>개발 중 흔하게 만나던 <code>json</code>의 내부는 어떻게 되어 있는지 같이 확인해봅시다. </p>
+<p>저는 <a href="https://github.com/python/cpython/blob/3.7/Lib/json/__init__.py" target="_blank" rel="noopener">cpython repository</a>에서 코드를 확인해봤습니다. 파이썬 코드는 ./Lib/ 디렉토리 아래에서 확인할 수 있습니다.</p>
+<p><code>cpython/Lib/json/</code> 디렉토리안의 내용입니다.</p>
+<ul>
+<li><code>__init__.py</code></li>
+<li><code>decoder.py</code></li>
+<li><code>encoder.py</code></li>
+<li><code>scanner.py</code></li>
+<li><code>tool.py</code></li>
+</ul>
+<p>본 글에서는 <code>__init__.py</code>를 확인해보겠습니다.</p>
+<h3 id="init-py"><a href="#init-py" class="headerlink" title="__init__.py"></a><code>__init__.py</code></h3><p>메소드 및 주요 변수 중심으로 천천히 설명하겠습니다. </p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">def dump(obj, fp, *, <span class="attribute">skipkeys</span>=<span class="literal">False</span>, <span class="attribute">ensure_ascii</span>=<span class="literal">True</span>, <span class="attribute">check_circular</span>=<span class="literal">True</span>,</span><br><span class="line">         <span class="attribute">allow_nan</span>=<span class="literal">True</span>, <span class="attribute">cls</span>=None, <span class="attribute">indent</span>=None, <span class="attribute">separators</span>=None,</span><br><span class="line">         <span class="attribute">default</span>=None, <span class="attribute">sort_keys</span>=<span class="literal">False</span>, **kw):</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">not</span> skipkeys <span class="keyword">and</span> ensure_ascii <span class="keyword">and</span></span><br><span class="line">        check_circular <span class="keyword">and</span> allow_nan <span class="keyword">and</span></span><br><span class="line">        cls is None <span class="keyword">and</span> indent is None <span class="keyword">and</span> separators is None <span class="keyword">and</span></span><br><span class="line">       <span class="built_in"> default </span>is None <span class="keyword">and</span> <span class="keyword">not</span> sort_keys <span class="keyword">and</span> <span class="keyword">not</span> kw):</span><br><span class="line">        iterable = _default_encoder.iterencode(obj)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">if</span> cls is None:</span><br><span class="line">            cls = JSONEncoder</span><br><span class="line">        iterable = cls(<span class="attribute">skipkeys</span>=skipkeys, <span class="attribute">ensure_ascii</span>=ensure_ascii,</span><br><span class="line">            <span class="attribute">check_circular</span>=check_circular, <span class="attribute">allow_nan</span>=allow_nan, <span class="attribute">indent</span>=indent,</span><br><span class="line">            <span class="attribute">separators</span>=separators,</span><br><span class="line">            <span class="attribute">default</span>=default, <span class="attribute">sort_keys</span>=sort_keys, **kw).iterencode(obj)</span><br><span class="line">    # could accelerate with writelines <span class="keyword">in</span> some versions of Python, at</span><br><span class="line">    # a debuggability cost</span><br><span class="line">    <span class="keyword">for</span> chunk <span class="keyword">in</span> iterable:</span><br><span class="line">        fp.write(chunk)</span><br></pre></td></tr></table></figure>
+<p><code>dump()</code>는 첫 번째 변수로 받는 <code>obj</code>를 JSON 포맷으로 변환하여 두 번째 변수로 받는 <code>fp</code>(<a href="https://docs.python.org/ko/3/glossary.html#term-file-object" target="_blank" rel="noopener">file object</a>, file-like object 와 동의어, streams라고 불리기도 한다)에 변환된 값을 넣는 메소드입니다. </p>
+<p>파이썬 오브젝트가 어떤 타입으로 변환되는지는 아래의 표를 참조하여 확인할 수 있다.</p>
+<table>
+<thead>
+<tr>
+<th>Python</th>
+<th>JSON</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dict</td>
+<td>object</td>
+</tr>
+<tr>
+<td>list, tuple</td>
+<td>array</td>
+</tr>
+<tr>
+<td>str</td>
+<td>string</td>
+</tr>
+<tr>
+<td>int, float, int- &amp; float-derived Enums</td>
+<td>number</td>
+</tr>
+<tr>
+<td>True</td>
+<td>true</td>
+</tr>
+<tr>
+<td>False</td>
+<td>false</td>
+</tr>
+<tr>
+<td>None</td>
+<td>null</td>
+</tr>
+</tbody>
+</table>
+<p><code>json</code> 모듈은 생성하는 오브젝트의 타입은 항상 <code>str</code>이기 때문에 <code>fp</code> 오브젝트 역시 <code>str</code> 타입의 인풋이 가능해야만 한다.</p>
+<p>첫 번째 <code>if/else</code>절을 보면 특별히 파라미터를 지정하지 않은 경우 <code>_default_encoder</code>을 사용하여 입력 받은 첫번째 파라미터, 즉 오브젝트를 <code>iterable</code>라는 이름의 iterable 객체로 반환합니다. <code>obj, fp</code> 이외의 파라미터가 입력되면 <code>else</code> 절로 들어가게 됩니다. <code>cls</code>가 특별히 입력되지 않은 경우, <code>JSONEncoder</code>를 사용합니다. </p>
+<p><code>iterable</code> 객체를 for loop을 통해 두 번째 파라미터 <code>fp</code>에 값을 작성합니다.</p>
+<hr>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">def dumps(obj, *, <span class="attribute">skipkeys</span>=<span class="literal">False</span>, <span class="attribute">ensure_ascii</span>=<span class="literal">True</span>, <span class="attribute">check_circular</span>=<span class="literal">True</span>,</span><br><span class="line">        <span class="attribute">allow_nan</span>=<span class="literal">True</span>, <span class="attribute">cls</span>=None, <span class="attribute">indent</span>=None, <span class="attribute">separators</span>=None,</span><br><span class="line">        <span class="attribute">default</span>=None, <span class="attribute">sort_keys</span>=<span class="literal">False</span>, **kw):</span><br><span class="line">    # cached encoder</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">not</span> skipkeys <span class="keyword">and</span> ensure_ascii <span class="keyword">and</span></span><br><span class="line">        check_circular <span class="keyword">and</span> allow_nan <span class="keyword">and</span></span><br><span class="line">        cls is None <span class="keyword">and</span> indent is None <span class="keyword">and</span> separators is None <span class="keyword">and</span></span><br><span class="line">       <span class="built_in"> default </span>is None <span class="keyword">and</span> <span class="keyword">not</span> sort_keys <span class="keyword">and</span> <span class="keyword">not</span> kw):</span><br><span class="line">        return _default_encoder.encode(obj)</span><br><span class="line">    <span class="keyword">if</span> cls is None:</span><br><span class="line">        cls = JSONEncoder</span><br><span class="line">    return cls(</span><br><span class="line">        <span class="attribute">skipkeys</span>=skipkeys, <span class="attribute">ensure_ascii</span>=ensure_ascii,</span><br><span class="line">        <span class="attribute">check_circular</span>=check_circular, <span class="attribute">allow_nan</span>=allow_nan, <span class="attribute">indent</span>=indent,</span><br><span class="line">        <span class="attribute">separators</span>=separators, <span class="attribute">default</span>=default, <span class="attribute">sort_keys</span>=sort_keys,</span><br><span class="line">        **kw).encode(obj)</span><br></pre></td></tr></table></figure>
+<p><code>dumps()</code> 와 <code>dump()</code> 의 차이점,<br>| dump()                                 | dumps()   |<br>|—————————————-|——–|<br>| 객체를 반환하지 않는다.                      | 객체를 반환한다.        |</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">def detect_encoding(b):</span><br><span class="line">    bstartswith = b.startswith</span><br><span class="line">    <span class="keyword">if</span> bstartswith((codecs.BOM_UTF32_BE, codecs.BOM_UTF32_LE)):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'utf-32'</span></span><br><span class="line">    <span class="keyword">if</span> bstartswith((codecs.BOM_UTF16_BE, codecs.BOM_UTF16_LE)):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'utf-16'</span></span><br><span class="line">    <span class="keyword">if</span> bstartswith(codecs.BOM_UTF8):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'utf-8-sig'</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> len(b) &gt;= <span class="number">4</span>:</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> b[<span class="number">0</span>]:</span><br><span class="line">            # <span class="number">00</span> <span class="number">00</span> -- -- - utf<span class="number">-32</span>-be</span><br><span class="line">            # <span class="number">00</span> XX -- -- - utf<span class="number">-16</span>-be</span><br><span class="line">            <span class="keyword">return</span> <span class="string">'utf-16-be'</span> <span class="keyword">if</span> b[<span class="number">1</span>] <span class="keyword">else</span> <span class="string">'utf-32-be'</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> b[<span class="number">1</span>]:</span><br><span class="line">            # XX <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> - utf<span class="number">-32</span>-le</span><br><span class="line">            # XX <span class="number">00</span> <span class="number">00</span> XX - utf<span class="number">-16</span>-le</span><br><span class="line">            # XX <span class="number">00</span> XX -- - utf<span class="number">-16</span>-le</span><br><span class="line">            <span class="keyword">return</span> <span class="string">'utf-16-le'</span> <span class="keyword">if</span> b[<span class="number">2</span>] <span class="keyword">or</span> b[<span class="number">3</span>] <span class="keyword">else</span> <span class="string">'utf-32-le'</span></span><br><span class="line">    elif len(b) == <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> b[<span class="number">0</span>]:</span><br><span class="line">            # <span class="number">00</span> XX - utf<span class="number">-16</span>-be</span><br><span class="line">            <span class="keyword">return</span> <span class="string">'utf-16-be'</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> b[<span class="number">1</span>]:</span><br><span class="line">            # XX <span class="number">00</span> - utf<span class="number">-16</span>-le</span><br><span class="line">            <span class="keyword">return</span> <span class="string">'utf-16-le'</span></span><br><span class="line">    # <span class="keyword">default</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'utf-8'</span></span><br></pre></td></tr></table></figure>
+<p><code>detect_encoding()</code> 입력된 파라미터 <code>b</code>(바이트) 의 인코딩을 <code>str</code> 로 반환하는 메소드. <code>codecs.py</code> 안의  <code>BOM_UTF32_BE</code>, <code>BOM_UTF32_LE</code>, <code>BOM_UTF16_BE</code>, <code>BOM_UTF16_LE</code>, <code>BOM_UTF8</code>와 같은 상수를 사용하여 입력된 문자열의 인코딩을 판단합니다. </p>
+<p><code>codecs.py</code> 안의 상수들을 한 번 보겠습니다. </p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># <span class="keyword">Byte </span>Order <span class="keyword">Mark </span>(<span class="keyword">BOM </span>= ZERO WIDTH NO-<span class="keyword">BREAK </span><span class="meta">SPACE</span> = U+FEFF)</span><br><span class="line"># <span class="keyword">and </span><span class="keyword">its </span>possible <span class="keyword">byte </span><span class="keyword">string </span>values</span><br><span class="line"># for UTF8/UTF16/UTF32 output <span class="keyword">and </span>little/<span class="keyword">big </span>endian machines</span><br><span class="line"></span><br><span class="line"># UTF-<span class="number">8</span></span><br><span class="line"><span class="keyword">BOM_UTF8 </span>= <span class="keyword">b'\xef\xbb\xbf'</span></span><br><span class="line"><span class="keyword"></span></span><br><span class="line"><span class="keyword"># </span>UTF-<span class="number">16</span>, little endian</span><br><span class="line"><span class="keyword">BOM_LE </span>= <span class="keyword">BOM_UTF16_LE </span>= <span class="keyword">b'\xff\xfe'</span></span><br><span class="line"><span class="keyword"></span></span><br><span class="line"><span class="keyword"># </span>UTF-<span class="number">16</span>, <span class="keyword">big </span>endian</span><br><span class="line"><span class="keyword">BOM_BE </span>= <span class="keyword">BOM_UTF16_BE </span>= <span class="keyword">b'\xfe\xff'</span></span><br><span class="line"><span class="keyword"></span></span><br><span class="line"><span class="keyword"># </span>UTF-<span class="number">32</span>, little endian</span><br><span class="line"><span class="keyword">BOM_UTF32_LE </span>= <span class="keyword">b'\xff\xfe\x00\x00'</span></span><br><span class="line"><span class="keyword"></span></span><br><span class="line"><span class="keyword"># </span>UTF-<span class="number">32</span>, <span class="keyword">big </span>endian</span><br><span class="line"><span class="keyword">BOM_UTF32_BE </span>= <span class="keyword">b'\x00\x00\xfe\xff'</span></span><br></pre></td></tr></table></figure>
+<p>보기에 앞서 주석 처리된 첫 번째 세 줄을 보면 <a href="https://simple.wikipedia.org/wiki/Byte_order_mark" target="_blank" rel="noopener">BOM(Byte order mark)</a> 이라는 단어를 발견할 수 있습니다. BOM은 해당 텍스트 파일의 인코딩을 명시하며 따라서 식별될 수도 있는 문자열 입니다. 유니코드 문자열 U+FEFF로서 인코딩 됩니다. BOM의 사용은 선택적으로 적용될 수 있으며, 사용하는 경우엔 텍스트 스트림의 첫 지점에 나타나야 합니다. BOM은 <a href="https://simple.wikipedia.org/wiki/Endianness" target="_blank" rel="noopener">endianess</a>, encoding(utf-8, utf-16, etc…) 등의 정보를 가지고 있습니다.</p>
+<p><a href="https://en.wikipedia.org/wiki/Byte_order_mark#Byte_order_marks_by_encoding" target="_blank" rel="noopener">Byte order marks by encoding</a> from wikipedia</p>
+<hr>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">def load(fp, *, <span class="attribute">cls</span>=None, <span class="attribute">object_hook</span>=None, <span class="attribute">parse_float</span>=None,</span><br><span class="line">         <span class="attribute">parse_int</span>=None, <span class="attribute">parse_constant</span>=None, <span class="attribute">object_pairs_hook</span>=None, **kw):</span><br><span class="line">    return loads(fp.read(),</span><br><span class="line">                 <span class="attribute">cls</span>=cls, <span class="attribute">object_hook</span>=object_hook,</span><br><span class="line">                 <span class="attribute">parse_float</span>=parse_float, <span class="attribute">parse_int</span>=parse_int,</span><br><span class="line">                 <span class="attribute">parse_constant</span>=parse_constant, <span class="attribute">object_pairs_hook</span>=object_pairs_hook, **kw)</span><br></pre></td></tr></table></figure>
+<p><code>load()</code>는 <code>dump()</code>와 반대의 기능입니다. fp(file-like object)를 파이썬 오브젝트로 deserialize(역직렬화)해주는 기능입니다. <code>load()</code> 메소드 자체는 별다른 로직을 가지고 있지 않습니다. 아래에 있는 <code>loads()</code>를 호출하고 있습니다. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">loads</span><span class="params">(s, *, encoding=None, cls=None, object_hook=None, parse_float=None,</span></span></span><br><span class="line"><span class="function"><span class="params">        parse_int=None, parse_constant=None, object_pairs_hook=None, **kw)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> isinstance(s, str):</span><br><span class="line">        <span class="keyword">if</span> s.startswith(<span class="string">'\ufeff'</span>):</span><br><span class="line">            <span class="keyword">raise</span> JSONDecodeError(<span class="string">"Unexpected UTF-8 BOM (decode using utf-8-sig)"</span>,</span><br><span class="line">                                  s, <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> isinstance(s, (bytes, bytearray)):</span><br><span class="line">            <span class="keyword">raise</span> TypeError(<span class="string">f'the JSON object must be str, bytes or bytearray, '</span></span><br><span class="line">                            <span class="string">f'not <span class="subst">&#123;s.__class__.__name__&#125;</span>'</span>)</span><br><span class="line">        s = s.decode(detect_encoding(s), <span class="string">'surrogatepass'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="string">"encoding"</span> <span class="keyword">in</span> kw:</span><br><span class="line">        <span class="keyword">import</span> warnings</span><br><span class="line">        warnings.warn(</span><br><span class="line">            <span class="string">"'encoding' is ignored and deprecated. It will be removed in Python 3.9"</span>,</span><br><span class="line">            DeprecationWarning,</span><br><span class="line">            stacklevel=<span class="number">2</span></span><br><span class="line">        )</span><br><span class="line">        <span class="keyword">del</span> kw[<span class="string">'encoding'</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (cls <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">and</span> object_hook <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">and</span></span><br><span class="line">            parse_int <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">and</span> parse_float <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">and</span></span><br><span class="line">            parse_constant <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">and</span> object_pairs_hook <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">and</span> <span class="keyword">not</span> kw):</span><br><span class="line">        <span class="keyword">return</span> _default_decoder.decode(s)</span><br><span class="line">    <span class="keyword">if</span> cls <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        cls = JSONDecoder</span><br><span class="line">    <span class="keyword">if</span> object_hook <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        kw[<span class="string">'object_hook'</span>] = object_hook</span><br><span class="line">    <span class="keyword">if</span> object_pairs_hook <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        kw[<span class="string">'object_pairs_hook'</span>] = object_pairs_hook</span><br><span class="line">    <span class="keyword">if</span> parse_float <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        kw[<span class="string">'parse_float'</span>] = parse_float</span><br><span class="line">    <span class="keyword">if</span> parse_int <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        kw[<span class="string">'parse_int'</span>] = parse_int</span><br><span class="line">    <span class="keyword">if</span> parse_constant <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        kw[<span class="string">'parse_constant'</span>] = parse_constant</span><br><span class="line">    <span class="keyword">return</span> cls(**kw).decode(s)</span><br></pre></td></tr></table></figure>
+<p><code>loads()</code>의 파라미터부터 보겠습니다. 첫 번째 파라미터 <code>s</code>는 JSON 문서를 포함하고 있는 <code>str</code>, <code>bytes</code>, <code>bytearray</code>를 말합니다.</p>
+<p>입력받은 <code>s</code>의 타입 검사부터 시작합니다. <code>str</code>, <code>bytes</code>, <code>bytearray</code> 셋 중 하나에 해당하지 않으면 TypeError를 일으킵니다.</p>
+<p><code>encoding</code>의 경우 deprecated 된 파라미터이기에 경고 문구를 나타내고 키워드 파라미터로부터 삭제합니다. <code>cls</code> 가 입력된 경우엔 기본 Decoder인 <code>JSONDecoder</code>를 사용하지 않고 입력받은 Decoder를 사용하여 Deserialize합니다. <code>loads()</code> 메소드 역시 입력받은 파라미터를 가지고 JSONDecoder의 <code>decode()</code> 메소드를 호출하는 역할이기에 타입 검사 이외의 로직은 보이지 않습니다.</p>
+<p><code>__init__.py</code>의 설명은 이렇게 끝났습니다. 전체 370 라인을 가지고 있지만 대부분이 주석 및 예제로 이루어져 있기에 실제 코드의 양을 얼마 되지 않아 금방 볼 수 있었습니다.</p>
+<p>다음으로는 <code>encoder.py</code>를 보겠습니다.</p>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Archive</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#json-JSON-encoder-and-decoder"><span class="toc-number">1.</span> <span class="toc-text">json - JSON encoder and decoder</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#init-py"><span class="toc-number">1.0.1.</span> <span class="toc-text">__init__.py</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://urangurang.github.io/code-reading-json-init/" target="_blank" rel="noopener"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://urangurang.github.io/code-reading-json-init/&text=파이썬 코드 읽어보기 - json/__init__.py" target="_blank" rel="noopener"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://urangurang.github.io/code-reading-json-init/&title=파이썬 코드 읽어보기 - json/__init__.py" target="_blank" rel="noopener"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=파이썬 코드 읽어보기 - json/__init__.py&body=Check out this article: https://urangurang.github.io/code-reading-json-init/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2020 urangurang
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Archive</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-158081532-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+

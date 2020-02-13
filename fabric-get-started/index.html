@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang=ko>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1, minimum-scale=0.8" />
+    
+    <meta name="description" content="Fabric &amp; Flask 사용기참고사이트 목록  Fabric 공식 홈페이지{:target&#x3D;”_blank”} Flask 공식 홈페이지 - Fabric으로 전개하기{:target&#x3D;”_blank”}   Fabric파이썬(2.5-2.7) 라이브러리이자 커맨드 라인 도구로 배포, 시스템 관리와 관련된 일들을 처리할 수 있게 해준다. 서버에 직접 접속 하지">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Fabric이 뭔지도 모르던 내가 터미널에 fab deploy를 쳤다?!">
+<meta property="og:url" content="https://urangurang.github.io/fabric-get-started/index.html">
+<meta property="og:site_name" content="urangurang">
+<meta property="og:description" content="Fabric &amp; Flask 사용기참고사이트 목록  Fabric 공식 홈페이지{:target&#x3D;”_blank”} Flask 공식 홈페이지 - Fabric으로 전개하기{:target&#x3D;”_blank”}   Fabric파이썬(2.5-2.7) 라이브러리이자 커맨드 라인 도구로 배포, 시스템 관리와 관련된 일들을 처리할 수 있게 해준다. 서버에 직접 접속 하지">
+<meta property="og:locale" content="ko_KR">
+<meta property="article:published_time" content="2016-09-26T15:00:00.000Z">
+<meta property="article:modified_time" content="2020-02-11T08:53:45.000Z">
+<meta property="article:author" content="urangurang">
+<meta property="article:tag" content="flask">
+<meta property="article:tag" content="fabric">
+<meta property="article:tag" content="automation">
+<meta name="twitter:card" content="summary">
+    
+
+    
+        
+            
+                <link rel="shortcut icon" href="/images/favicon.ico">
+            
+        
+        
+            
+                <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+            
+        
+        
+            
+                <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+            
+        
+    
+    <!-- title -->
+    <title>Fabric이 뭔지도 모르던 내가 터미널에 fab deploy를 쳤다?!</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Archive</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/flask-babel/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/GetFlags%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%89%E1%85%B5%E1%84%8C%E1%85%A1%E1%86%A8%E1%84%92%E1%85%A1%E1%86%AB%E1%84%8B%E1%85%B5%E1%84%8B%E1%85%B2/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://urangurang.github.io/fabric-get-started/" target="_blank" rel="noopener"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://urangurang.github.io/fabric-get-started/&text=Fabric이 뭔지도 모르던 내가 터미널에 fab deploy를 쳤다?!" target="_blank" rel="noopener"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://urangurang.github.io/fabric-get-started/&title=Fabric이 뭔지도 모르던 내가 터미널에 fab deploy를 쳤다?!" target="_blank" rel="noopener"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Fabric이 뭔지도 모르던 내가 터미널에 fab deploy를 쳤다?!&body=Check out this article: https://urangurang.github.io/fabric-get-started/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Fabric-amp-Flask-사용기"><span class="toc-number">1.</span> <span class="toc-text">Fabric &amp; Flask 사용기</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Fabric"><span class="toc-number">1.1.</span> <span class="toc-text">Fabric</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Before-Fabric을-알기-전…"><span class="toc-number">1.2.</span> <span class="toc-text">Before Fabric을 알기 전…</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#After-Fabric을-알고난-후"><span class="toc-number">1.3.</span> <span class="toc-text">After Fabric을 알고난 후!</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Fabric-설치"><span class="toc-number">1.4.</span> <span class="toc-text">Fabric 설치</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Fabric-설정"><span class="toc-number">1.5.</span> <span class="toc-text">Fabric 설정</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Fabric-실행-방법"><span class="toc-number">1.6.</span> <span class="toc-text">Fabric 실행 방법</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Arguments가-필요한-메소드-실행"><span class="toc-number">1.7.</span> <span class="toc-text">Arguments가 필요한 메소드 실행</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#종료-시-반환값-Exit-Status"><span class="toc-number">1.8.</span> <span class="toc-text">종료 시 반환값, Exit Status</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Fabric이 뭔지도 모르던 내가 터미널에 fab deploy를 쳤다?!
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">urangurang</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2016-09-26T15:00:00.000Z" itemprop="datePublished">2016-09-27</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-caret-down"></i>
+        <a class="category-link" href="/categories/python/">python</a>
+    </div>
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/automation/" rel="tag">automation</a>, <a class="tag-link" href="/tags/fabric/" rel="tag">fabric</a>, <a class="tag-link" href="/tags/flask/" rel="tag">flask</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="Fabric-amp-Flask-사용기"><a href="#Fabric-amp-Flask-사용기" class="headerlink" title="Fabric &amp; Flask 사용기"></a>Fabric &amp; Flask 사용기</h2><p>참고사이트 목록</p>
+<ul>
+<li><a href="http://www.fabfile.org/" target="_blank" rel="noopener">Fabric 공식 홈페이지</a>{:target=”_blank”}</li>
+<li><a href="http://flask-docs-kr.readthedocs.io/ko/latest/patterns/fabric.html" target="_blank" rel="noopener">Flask 공식 홈페이지 - Fabric으로 전개하기</a>{:target=”_blank”}</li>
+</ul>
+<hr>
+<h3 id="Fabric"><a href="#Fabric" class="headerlink" title="Fabric"></a>Fabric</h3><p>파이썬(2.5-2.7) 라이브러리이자 <strong>커맨드 라인 도구</strong>로 <strong>배포</strong>, <strong>시스템 관리</strong>와 관련된 일들을 처리할 수 있게 해준다.</p>
+<p>서버에 직접 접속 하지 않고, 로컬에서 Fabric 명령어를 통해 서버에 명령을 내릴 수 있다.(로컬 명령 또한 가능) Prompt input 도 받을 수 있고, 중단 역시 가능하다.</p>
+<p><strong>배포자동화</strong>에 사용할 수 있는 라이브러리로 간주하고 넘어가겠습니다.</p>
+<h3 id="Before-Fabric을-알기-전…"><a href="#Before-Fabric을-알기-전…" class="headerlink" title="Before Fabric을 알기 전…"></a>Before Fabric을 알기 전…</h3><p>배포를 하기위해<br>로컬에서 작업한 내용을 Git에 올리고 AWS EC2에 접속해서 Git으로 불러온다.<br>그리고 uwsgi를 다시 restart해서 변경 내용을 실제 서비스에 반영시켰다.</p>
+<pre><code>$ git push origin master
+$ ssh -i ec2-user@xxx.xx.xx.xxx
+$ cd project
+$ git pull
+$ sudo service uwsgi restart
+</code></pre><p>ec2 인스턴스 1개 배포시 5줄 이상 명령어를 처야한다. 사실 인스턴스를 1개 쓰던 시절엔 Fabric의 필요성을 느끼지 못했다.(지금도 인스턴스가 많지는 않다..)<br>만약 운영중인 서비스가 대박(날수있을까?)이 나서 인스턴스의 개수가 늘어난다면? 그때도 서버 하나 하나 접속해서 명령어를 직접 입력하기에는 귀찮기도 하고, 실수할 수도 있기에 Fabric을 쓰는가보다. </p>
+<h3 id="After-Fabric을-알고난-후"><a href="#After-Fabric을-알고난-후" class="headerlink" title="After Fabric을 알고난 후!"></a>After Fabric을 알고난 후!</h3><p>로컬에서 <strong>두 줄</strong> 만 입력하면 배포가 끝난다.</p>
+<pre><code>$ fab pack
+$ fab deploy
+</code></pre><p>물론 어느정도 세팅을 마친 후의 이야기다.</p>
+<h3 id="Fabric-설치"><a href="#Fabric-설치" class="headerlink" title="Fabric 설치"></a>Fabric 설치</h3><pre><code>$ pip install fabric
+</code></pre><h3 id="Fabric-설정"><a href="#Fabric-설정" class="headerlink" title="Fabric 설정"></a>Fabric 설정</h3><p>파일명은 다음과 같이 fabfile.py로 만든다. fabfile.py는 프로젝트의 루트 경로에 두는것을 추천한다.</p>
+<p>– fabfile.py</p>
+<pre><code>from fabric.api import env, local, settings, cd, run
+
+AWS_EC2_01 = &apos;172.31.xx.xxx&apos;  # Running
+AWS_EC2_02 = &apos;172.31.xx.xxx&apos;  # Running
+AWS_UTIL = &apos;172.31.x.xx&apos;  # Running
+
+PROJECT_DIR = &apos;/var/www/project&apos;
+APP_DIR = &apos;%s/app&apos; % PROJECT_DIR
+
+env.user = &apos;ubuntu&apos;
+env.hosts = [AWS_EC2_01, AWS_EC2_02]
+env.key_filename = &apos;/Users/User/xxx.pem&apos;
+
+
+def pack():
+    local(&apos;git push origin master&apos;, capture=False)
+
+
+def deploy():
+    with settings(warn_only=True):
+        with cd(APP_DIR):
+            run(&apos;sudo ./deploy.sh&apos;)
+</code></pre><ul>
+<li>pack() : local 명령어를 통해 git push를 대신 수행.</li>
+<li>deploy() : cd 명령어로 경로를 이동하고, run 명령어로 deploy.sh 파일을 실행한다. deploy.sh 파일에는 경로 이동 및 git pull, kill uwsgi processes, start uswgi 관련 내용이 있다.</li>
+<li>env : 환경변수를 입력</li>
+<li>env.hosts : 명령어를 수행할 서버의 주소의 리스트</li>
+<li>env.key_filename : ssh 접속 시 사용될 키의 경로</li>
+<li>env.user : 유저이름</li>
+<li>run : 원격에서 쉘 명령어를 실행.</li>
+<li>cd : 원격에서 경로를 변경. 원격 명령이 실행되는 동안 변경된 디렉토리에 있을 수 있도록 해주는 컨텍스트 매니저. 로컬에서는 lcd()를 사용.</li>
+<li>local : 이름대로 로컬에서 명령어를 대신 실행시킨다. 위 코드에서는 git push origin master를 fab pack 이라는 명령어로 실행할 수 있다.</li>
+<li>run : 원격에서 명령어를 실행한다.</li>
+<li>settings : 컨텍스트 매니저, 특정 절(블럭)에서 기존의 변수에 다른 값을 적용시켜 사용할 수 있게 해준다. env의 값을 일시적으로 변경해 사용할 때 사용. </li>
+<li>warn_only : Failure handling과 관련된 옵션으로 warn_only는 False를 기본값으로 가지고 있다. Fabric은 실행 중 에러를 만나면 즉시 정지되도록 되어있다.<br>에러를 만날때마다 정지되면 언제 원하는 작업을 다 할 수 있을지 걱정이 되니 그럴땐 warn_only=True로 두고 실행하면 에러를 만나도 끝까지 작업을 완수할 수 있다.<br>위의 deploy() 메소드에서 settings(warn_only=True)로 사용되는 것을 볼 수 있다.</li>
+</ul>
+<pre><code>env.user = &apos;foo&apos;
+
+def deploy():
+    with settings(user=&apos;bar&apos;):
+        run(&apos;uwsgi --uwsgi.ini&apos;)
+        run(&apos;sudo service nginx restart&apos;)
+</code></pre><p>1번줄 user는 foo<br>4번줄에서 user를 bar로 세팅하고, 5번줄에서 user가 bar인 상태로 uwsgi 명령어를 실행한다.<br>with settings 절이 끝나고 나면 다시 user의 값은 초기 값(foo)으로 돌아온다.</p>
+<h3 id="Fabric-실행-방법"><a href="#Fabric-실행-방법" class="headerlink" title="Fabric 실행 방법"></a>Fabric 실행 방법</h3><p>프로젝트의 루트 경로에서 ‘<strong>fab 메소드명</strong>‘을 입력한다.<br>각 줄에 명령어를 입력할 수도, 한 줄에 입력할 수도 있다.</p>
+<pre><code>$ fab pack
+$ fab deploy
+$ fab pack deploy     
+</code></pre><h3 id="Arguments가-필요한-메소드-실행"><a href="#Arguments가-필요한-메소드-실행" class="headerlink" title="Arguments가 필요한 메소드 실행"></a>Arguments가 필요한 메소드 실행</h3><p>Fabric 공식 홈페이지에 있는 예제를 보여드립니다.</p>
+<pre><code>def new_user(username, admin=&apos;no&apos;, comment=&quot;No comment provided&quot;):
+    print(&quot;New User (%s): %s&quot; % (username, comment))
+    pass
+</code></pre><p>username만 입력하는 경우</p>
+<pre><code>$ fab new_user:myusername
+</code></pre><p>명시적 키워드 입력</p>
+<pre><code>$ fab new_user:username=myusername
+</code></pre><p>순서에 맞춰 입력(구분기호 ,컴마 사용)</p>
+<pre><code>$ fab new_user:myusername,yes
+</code></pre><p>섞어서 사용해도 무방합니다.</p>
+<pre><code>$ fab new_user:myusername,admin=yes
+</code></pre><p>만약 print 명령어에서 컴마를 입력 해야할 경우가 있다면 \(역슬래쉬) + ,  를 사용해 입력 가능합니다.</p>
+<pre><code>$ fab new_user:myusername,admin=no,comment=&apos;Gary\, new developer (starts Monday)&apos;
+</code></pre><h3 id="종료-시-반환값-Exit-Status"><a href="#종료-시-반환값-Exit-Status" class="headerlink" title="종료 시 반환값, Exit Status"></a>종료 시 반환값, Exit Status</h3><ul>
+<li>fab을 통한 모든 명령이 문제 없이 실행되면, 0을 반환.</li>
+<li>유효하지 않은 명령이나 옵션이 입력되면, 1을 반환.</li>
+<li>호스트 연결에 실패하면, 1을 반환하고 다음 호스트로 연결을 시도하지 않는다.</li>
+<li>로컬, 원격 명령이 실패시 1을 반환.</li>
+</ul>
+<p>그냥 성공시 0 실패시 1로 생각하면 되겠군요…</p>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Archive</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Fabric-amp-Flask-사용기"><span class="toc-number">1.</span> <span class="toc-text">Fabric &amp; Flask 사용기</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Fabric"><span class="toc-number">1.1.</span> <span class="toc-text">Fabric</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Before-Fabric을-알기-전…"><span class="toc-number">1.2.</span> <span class="toc-text">Before Fabric을 알기 전…</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#After-Fabric을-알고난-후"><span class="toc-number">1.3.</span> <span class="toc-text">After Fabric을 알고난 후!</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Fabric-설치"><span class="toc-number">1.4.</span> <span class="toc-text">Fabric 설치</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Fabric-설정"><span class="toc-number">1.5.</span> <span class="toc-text">Fabric 설정</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Fabric-실행-방법"><span class="toc-number">1.6.</span> <span class="toc-text">Fabric 실행 방법</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Arguments가-필요한-메소드-실행"><span class="toc-number">1.7.</span> <span class="toc-text">Arguments가 필요한 메소드 실행</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#종료-시-반환값-Exit-Status"><span class="toc-number">1.8.</span> <span class="toc-text">종료 시 반환값, Exit Status</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://urangurang.github.io/fabric-get-started/" target="_blank" rel="noopener"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://urangurang.github.io/fabric-get-started/&text=Fabric이 뭔지도 모르던 내가 터미널에 fab deploy를 쳤다?!" target="_blank" rel="noopener"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://urangurang.github.io/fabric-get-started/&title=Fabric이 뭔지도 모르던 내가 터미널에 fab deploy를 쳤다?!" target="_blank" rel="noopener"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Fabric이 뭔지도 모르던 내가 터미널에 fab deploy를 쳤다?!&body=Check out this article: https://urangurang.github.io/fabric-get-started/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2020 urangurang
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Archive</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-158081532-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+

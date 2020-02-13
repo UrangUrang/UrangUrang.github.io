@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang=ko>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1, minimum-scale=0.8" />
+    
+    <meta name="description" content="json - JSON encoder and decoder 출처 : https:&#x2F;&#x2F;docs.python.org&#x2F;3&#x2F;library&#x2F;json.html 코드 : https:&#x2F;&#x2F;github.com&#x2F;python&#x2F;cpython&#x2F;blob&#x2F;3.7&#x2F;Lib&#x2F;json&#x2F;decoder.py  파이썬 코드 읽어보기 첫 번째 시리즈는 json입니다.  import json 개발 중 흔">
+<meta property="og:type" content="article">
+<meta property="og:title" content="파이썬 코드 읽어보기 - json&#x2F;decoder.py, scanner.py">
+<meta property="og:url" content="https://urangurang.github.io/code-reading-json-decoder-scanner/index.html">
+<meta property="og:site_name" content="urangurang">
+<meta property="og:description" content="json - JSON encoder and decoder 출처 : https:&#x2F;&#x2F;docs.python.org&#x2F;3&#x2F;library&#x2F;json.html 코드 : https:&#x2F;&#x2F;github.com&#x2F;python&#x2F;cpython&#x2F;blob&#x2F;3.7&#x2F;Lib&#x2F;json&#x2F;decoder.py  파이썬 코드 읽어보기 첫 번째 시리즈는 json입니다.  import json 개발 중 흔">
+<meta property="og:locale" content="ko_KR">
+<meta property="article:published_time" content="2019-09-01T16:43:44.000Z">
+<meta property="article:modified_time" content="2020-02-10T14:45:58.000Z">
+<meta property="article:author" content="urangurang">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="JSON">
+<meta name="twitter:card" content="summary">
+    
+
+    
+        
+            
+                <link rel="shortcut icon" href="/images/favicon.ico">
+            
+        
+        
+            
+                <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+            
+        
+        
+            
+                <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+            
+        
+    
+    <!-- title -->
+    <title>파이썬 코드 읽어보기 - json/decoder.py, scanner.py</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Archive</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/code-reading-http-init/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/code-reading-json-encoder/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://urangurang.github.io/code-reading-json-decoder-scanner/" target="_blank" rel="noopener"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://urangurang.github.io/code-reading-json-decoder-scanner/&text=파이썬 코드 읽어보기 - json/decoder.py, scanner.py" target="_blank" rel="noopener"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://urangurang.github.io/code-reading-json-decoder-scanner/&title=파이썬 코드 읽어보기 - json/decoder.py, scanner.py" target="_blank" rel="noopener"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=파이썬 코드 읽어보기 - json/decoder.py, scanner.py&body=Check out this article: https://urangurang.github.io/code-reading-json-decoder-scanner/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#json-JSON-encoder-and-decoder"><span class="toc-number">1.</span> <span class="toc-text">json - JSON encoder and decoder</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        파이썬 코드 읽어보기 - json/decoder.py, scanner.py
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">urangurang</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2019-09-01T16:43:44.000Z" itemprop="datePublished">2019-09-02</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-caret-down"></i>
+        <a class="category-link" href="/categories/python/">python</a>
+    </div>
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/JSON/" rel="tag">JSON</a>, <a class="tag-link" href="/tags/python/" rel="tag">python</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="json-JSON-encoder-and-decoder"><a href="#json-JSON-encoder-and-decoder" class="headerlink" title="json - JSON encoder and decoder"></a>json - JSON encoder and decoder</h1><ul>
+<li>출처 : <a href="https://docs.python.org/3/library/json.html" target="_blank" rel="noopener">https://docs.python.org/3/library/json.html</a></li>
+<li>코드 : <a href="https://github.com/python/cpython/blob/3.7/Lib/json/decoder.py" target="_blank" rel="noopener">https://github.com/python/cpython/blob/3.7/Lib/json/decoder.py</a></li>
+</ul>
+<p><strong>파이썬 코드 읽어보기</strong> 첫 번째 시리즈는 <code>json</code>입니다. </p>
+<p><code>import json</code></p>
+<p>개발 중 흔하게 만나던 <code>json</code>의 내부는 어떻게 되어 있는지 같이 확인해봅시다. </p>
+<p>저는 <a href="https://github.com/python/cpython/blob/3.7/Lib/json/__init__.py" target="_blank" rel="noopener">cpython repository</a>에서 코드를 확인해봤습니다. 파이썬 코드는 ./Lib/ 디렉토리 아래에서 확인할 수 있습니다.</p>
+<p><code>cpython/Lib/json/</code> 디렉토리안의 내용입니다.</p>
+<ul>
+<li><code>__init__.py</code></li>
+<li><code>decoder.py</code></li>
+<li><code>encoder.py</code></li>
+<li><code>scanner.py</code></li>
+<li><code>tool.py</code></li>
+</ul>
+<p>본 글에서는 <code>decoder.py</code> 와 <code>scanner.py</code> 를 확인해보겠습니다. </p>
+<p>다음과 같은 메소드와 클래스에 대해 자세히 살펴보려합니다.</p>
+<ul>
+<li><code>JSONDecoder</code> - <code>cls</code></li>
+<li><code>JSONDecodeError</code> - <code>cls</code></li>
+<li><code>_decode_uXXXX</code> - <code>method</code></li>
+<li><code>py_scanstring</code> - <code>method</code></li>
+<li><code>JSONObject</code> - <code>method</code></li>
+<li><code>JSONArray</code> - <code>method</code></li>
+</ul>
+<p><code>class JSONDecoder</code> 부터 시작합니다.</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">JSONDecoder</span>(<span class="title">object</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(<span class="keyword">self</span>, *, object_hook=None, parse_float=None,</span></span></span><br><span class="line"><span class="function"><span class="params">            parse_int=None, parse_constant=None, strict=True,</span></span></span><br><span class="line"><span class="function"><span class="params">            object_pairs_hook=None)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">self</span>.object_hook = object_hook</span><br><span class="line">        <span class="keyword">self</span>.parse_float = parse_float <span class="keyword">or</span> float</span><br><span class="line">        <span class="keyword">self</span>.parse_int = parse_int <span class="keyword">or</span> int</span><br><span class="line">        <span class="keyword">self</span>.parse_constant = parse_constant <span class="keyword">or</span> _CONSTANTS.__getitem_<span class="number">_</span></span><br><span class="line">        <span class="keyword">self</span>.strict = strict</span><br><span class="line">        <span class="keyword">self</span>.object_pairs_hook = object_pairs_hook</span><br><span class="line">        <span class="keyword">self</span>.parse_object = JSONObject</span><br><span class="line">        <span class="keyword">self</span>.parse_array = JSONArray</span><br><span class="line">        <span class="keyword">self</span>.parse_string = scanstring</span><br><span class="line">        <span class="keyword">self</span>.memo = &#123;&#125;</span><br><span class="line">        <span class="keyword">self</span>.scan_once = scanner.make_scanner(<span class="keyword">self</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">decode</span><span class="params">(<span class="keyword">self</span>, s, _w=WHITESPACE.match)</span></span><span class="symbol">:</span></span><br><span class="line">        obj, <span class="keyword">end</span> = <span class="keyword">self</span>.raw_decode(s, idx=_w(s, <span class="number">0</span>).<span class="keyword">end</span>())</span><br><span class="line">        <span class="keyword">end</span> = _w(s, <span class="keyword">end</span>).<span class="keyword">end</span>()</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">end</span> != len(s)<span class="symbol">:</span></span><br><span class="line">            raise JSONDecodeError(<span class="string">"Extra data"</span>, s, <span class="keyword">end</span>)</span><br><span class="line">        <span class="keyword">return</span> obj</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">raw_decode</span><span class="params">(<span class="keyword">self</span>, s, idx=<span class="number">0</span>)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="symbol">try:</span></span><br><span class="line">            obj, <span class="keyword">end</span> = <span class="keyword">self</span>.scan_once(s, idx)</span><br><span class="line">        except StopIteration as <span class="symbol">err:</span></span><br><span class="line">            raise JSONDecodeError(<span class="string">"Expecting value"</span>, s, err.value) from None</span><br><span class="line">        <span class="keyword">return</span> obj, <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>생성자의 각 파라미터에 대한 설명은 생략하겠습니다. </p>
+<p><code>decode()</code> - JSON 문서를 포함하고 있는 스트링 객체를 파이썬 오브젝트로 반환합니다.</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span>&gt; from json import JSONDecoder</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; decoder = JSONDecoder()</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; a = decoder.decode(<span class="string">'&#123;"a" : 1&#125;'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; a</span><br><span class="line">&#123;<span class="string">'a'</span>: <span class="number">1</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; type(a)</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">dict</span>'&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>raw_decode(self, s, idx=0)</code> - JSON 문서를 디코딩해서 파이썬 객체와 파라미터 <code>s</code>가 끝나는 지점의 인덱스를 <code>tuple</code>의  형태로 반환합니다. </p>
+<p><code>return (object, len(s))</code> 대략 이런 느낌입니다.</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span>&gt; decoder.raw_decode(<span class="string">'&#123;"a": 123&#125;'</span>)</span><br><span class="line">(&#123;<span class="string">'a'</span>: <span class="number">123</span>&#125;, <span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">def raw<span class="constructor">_decode(<span class="params">self</span>, <span class="params">s</span>, <span class="params">idx</span>=0)</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        obj, <span class="keyword">end</span> = self.scan<span class="constructor">_once(<span class="params">s</span>, <span class="params">idx</span>)</span></span><br><span class="line">    except StopIteration <span class="keyword">as</span> err:</span><br><span class="line">        raise <span class="constructor">JSONDecodeError(<span class="string">"Expecting value"</span>, <span class="params">s</span>, <span class="params">err</span>.<span class="params">value</span>)</span> from None</span><br><span class="line">    return obj, <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>어떤 경우에 <code>StopIteration</code> 이 발생하는지 확인해보겠습니다. <code>self.scan_once(s, idx)</code> 메소드는 생성자에서 <code>scanner</code>로 부터 주입받은 것임을 알 수 있습니다. <code>self.scan_once = scanner.make_scanner(self)</code></p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># scanner.py</span></span><br><span class="line"></span><br><span class="line"><span class="attr">make_scanner</span> = c_make_scanner or py_make_scanner</span><br></pre></td></tr></table></figure>
+<p><code>c</code> 는 제가 잘 몰라서 <code>py_make_scanner</code> 중심으로 어떤 일들이 일어나고 있는지 보겠습니다. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># scanner.py</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">py_make_scanner</span><span class="params">(context)</span>:</span></span><br><span class="line">    parse_object = context.parse_object</span><br><span class="line">    parse_array = context.parse_array</span><br><span class="line">    parse_string = context.parse_string</span><br><span class="line">    match_number = NUMBER_RE.match</span><br><span class="line">    strict = context.strict</span><br><span class="line">    parse_float = context.parse_float</span><br><span class="line">    parse_int = context.parse_int</span><br><span class="line">    parse_constant = context.parse_constant</span><br><span class="line">    object_hook = context.object_hook</span><br><span class="line">    object_pairs_hook = context.object_pairs_hook</span><br><span class="line">    memo = context.memo</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_scan_once</span><span class="params">(string, idx)</span>:</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            nextchar = string[idx]</span><br><span class="line">        <span class="keyword">except</span> IndexError:</span><br><span class="line">            <span class="keyword">raise</span> StopIteration(idx)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> nextchar == <span class="string">'"'</span>:</span><br><span class="line">            <span class="keyword">return</span> parse_string(string, idx + <span class="number">1</span>, strict)</span><br><span class="line">        <span class="keyword">elif</span> nextchar == <span class="string">'&#123;'</span>:</span><br><span class="line">            <span class="keyword">return</span> parse_object((string, idx + <span class="number">1</span>), strict,</span><br><span class="line">                _scan_once, object_hook, object_pairs_hook, memo)</span><br><span class="line">        <span class="keyword">elif</span> nextchar == <span class="string">'['</span>:</span><br><span class="line">            <span class="keyword">return</span> parse_array((string, idx + <span class="number">1</span>), _scan_once)</span><br><span class="line">        <span class="keyword">elif</span> nextchar == <span class="string">'n'</span> <span class="keyword">and</span> string[idx:idx + <span class="number">4</span>] == <span class="string">'null'</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span>, idx + <span class="number">4</span></span><br><span class="line">        <span class="keyword">elif</span> nextchar == <span class="string">'t'</span> <span class="keyword">and</span> string[idx:idx + <span class="number">4</span>] == <span class="string">'true'</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span>, idx + <span class="number">4</span></span><br><span class="line">        <span class="keyword">elif</span> nextchar == <span class="string">'f'</span> <span class="keyword">and</span> string[idx:idx + <span class="number">5</span>] == <span class="string">'false'</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span>, idx + <span class="number">5</span></span><br><span class="line"></span><br><span class="line">        m = match_number(string, idx)</span><br><span class="line">        <span class="keyword">if</span> m <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            integer, frac, exp = m.groups()</span><br><span class="line">            <span class="keyword">if</span> frac <span class="keyword">or</span> exp:</span><br><span class="line">                res = parse_float(integer + (frac <span class="keyword">or</span> <span class="string">''</span>) + (exp <span class="keyword">or</span> <span class="string">''</span>))</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                res = parse_int(integer)</span><br><span class="line">            <span class="keyword">return</span> res, m.end()</span><br><span class="line">        <span class="keyword">elif</span> nextchar == <span class="string">'N'</span> <span class="keyword">and</span> string[idx:idx + <span class="number">3</span>] == <span class="string">'NaN'</span>:</span><br><span class="line">            <span class="keyword">return</span> parse_constant(<span class="string">'NaN'</span>), idx + <span class="number">3</span></span><br><span class="line">        <span class="keyword">elif</span> nextchar == <span class="string">'I'</span> <span class="keyword">and</span> string[idx:idx + <span class="number">8</span>] == <span class="string">'Infinity'</span>:</span><br><span class="line">            <span class="keyword">return</span> parse_constant(<span class="string">'Infinity'</span>), idx + <span class="number">8</span></span><br><span class="line">        <span class="keyword">elif</span> nextchar == <span class="string">'-'</span> <span class="keyword">and</span> string[idx:idx + <span class="number">9</span>] == <span class="string">'-Infinity'</span>:</span><br><span class="line">            <span class="keyword">return</span> parse_constant(<span class="string">'-Infinity'</span>), idx + <span class="number">9</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">raise</span> StopIteration(idx)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">scan_once</span><span class="params">(string, idx)</span>:</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">return</span> _scan_once(string, idx)</span><br><span class="line">        <span class="keyword">finally</span>:</span><br><span class="line">            memo.clear()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> scan_once</span><br></pre></td></tr></table></figure>
+<p><code>py_make_scanner.scan_once()</code> 를 실행하면 내부에 정의된 메소드 <code>scan_once()</code> 가 <code>_scan_once()</code> 프라이빗 메소드를 부른 후 <code>finally</code> 구문을 통해 <code>memo.clear()</code>를 실행합니다.</p>
+<p><code>memo</code> 변수는 <code>memo = context.memo</code> 를 통해 생성된 변수입니다. 그리고 <code>context</code>는  <code>JSONDecoder</code> 클래스의 인스턴스입니다. 따라서 <code>context.memo</code> 는 <code>dict</code> 타입의 변수 입니다. </p>
+<p>이상으로 <code>decoder.py</code> 와 <code>scanner.py</code> 를 간략하게 살펴 보았습니다.</p>
+<p>다음으로는 <code>json/tool.py</code> 의 사용법과 코드를 보도록 하겠습니다. </p>
+<p>감사합니다.</p>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Archive</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#json-JSON-encoder-and-decoder"><span class="toc-number">1.</span> <span class="toc-text">json - JSON encoder and decoder</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://urangurang.github.io/code-reading-json-decoder-scanner/" target="_blank" rel="noopener"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://urangurang.github.io/code-reading-json-decoder-scanner/&text=파이썬 코드 읽어보기 - json/decoder.py, scanner.py" target="_blank" rel="noopener"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://urangurang.github.io/code-reading-json-decoder-scanner/&title=파이썬 코드 읽어보기 - json/decoder.py, scanner.py" target="_blank" rel="noopener"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=파이썬 코드 읽어보기 - json/decoder.py, scanner.py&body=Check out this article: https://urangurang.github.io/code-reading-json-decoder-scanner/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2020 urangurang
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Archive</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-158081532-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+

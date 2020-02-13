@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang=ko>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1, minimum-scale=0.8" />
+    
+    <meta name="description" content="코리안가이드(가칭) 개발에 관한 계획을 세우려 한다. 지금까지는 생각나는대로 기능구현을 해왔는데, 현재 완성된 결과물을 보니 필요한 기능들이 빠져있고, 있어야할 기능이 없어 상당히 완성도가 떨어진다고 느꼈다. 앞으로는 각 페이지에 들어갈 기능을 명시하고, 계획에 맞춰 개발을 진행해보려 한다. 현재 구현 상황 및&amp;nbsp;필요한 기능 목록 (페이지로 구분)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="1일차 개발 및 운영 계획 수립">
+<meta property="og:url" content="https://urangurang.github.io/1%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-%E1%84%80%E1%85%A2%E1%84%87%E1%85%A1%E1%86%AF-%E1%84%86%E1%85%B5%E1%86%BE-%E1%84%8B%E1%85%AE%E1%86%AB%E1%84%8B%E1%85%A7%E1%86%BC-%E1%84%80%E1%85%A8%E1%84%92%E1%85%AC%E1%86%A8-%E1%84%89%E1%85%AE%E1%84%85%E1%85%B5%E1%86%B8/index.html">
+<meta property="og:site_name" content="urangurang">
+<meta property="og:description" content="코리안가이드(가칭) 개발에 관한 계획을 세우려 한다. 지금까지는 생각나는대로 기능구현을 해왔는데, 현재 완성된 결과물을 보니 필요한 기능들이 빠져있고, 있어야할 기능이 없어 상당히 완성도가 떨어진다고 느꼈다. 앞으로는 각 페이지에 들어갈 기능을 명시하고, 계획에 맞춰 개발을 진행해보려 한다. 현재 구현 상황 및&amp;nbsp;필요한 기능 목록 (페이지로 구분)">
+<meta property="og:locale" content="ko_KR">
+<meta property="article:published_time" content="2016-01-03T15:00:00.000Z">
+<meta property="article:modified_time" content="2020-02-12T15:14:05.000Z">
+<meta property="article:author" content="urangurang">
+<meta name="twitter:card" content="summary">
+    
+
+    
+        
+            
+                <link rel="shortcut icon" href="/images/favicon.ico">
+            
+        
+        
+            
+                <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+            
+        
+        
+            
+                <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+            
+        
+    
+    <!-- title -->
+    <title>1일차 개발 및 운영 계획 수립</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Archive</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-%E1%84%90%E1%85%B3%E1%84%85%E1%85%A6%E1%86%AF%E1%84%85%E1%85%A9-%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8C%E1%85%A5%E1%86%BC-%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5-%E1%84%89%E1%85%A6%E1%84%87%E1%85%AE-%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8C%E1%85%A5%E1%86%BC/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/08-tokyo-station/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://urangurang.github.io/1%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-%E1%84%80%E1%85%A2%E1%84%87%E1%85%A1%E1%86%AF-%E1%84%86%E1%85%B5%E1%86%BE-%E1%84%8B%E1%85%AE%E1%86%AB%E1%84%8B%E1%85%A7%E1%86%BC-%E1%84%80%E1%85%A8%E1%84%92%E1%85%AC%E1%86%A8-%E1%84%89%E1%85%AE%E1%84%85%E1%85%B5%E1%86%B8/" target="_blank" rel="noopener"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://urangurang.github.io/1%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-%E1%84%80%E1%85%A2%E1%84%87%E1%85%A1%E1%86%AF-%E1%84%86%E1%85%B5%E1%86%BE-%E1%84%8B%E1%85%AE%E1%86%AB%E1%84%8B%E1%85%A7%E1%86%BC-%E1%84%80%E1%85%A8%E1%84%92%E1%85%AC%E1%86%A8-%E1%84%89%E1%85%AE%E1%84%85%E1%85%B5%E1%86%B8/&text=1일차 개발 및 운영 계획 수립" target="_blank" rel="noopener"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://urangurang.github.io/1%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-%E1%84%80%E1%85%A2%E1%84%87%E1%85%A1%E1%86%AF-%E1%84%86%E1%85%B5%E1%86%BE-%E1%84%8B%E1%85%AE%E1%86%AB%E1%84%8B%E1%85%A7%E1%86%BC-%E1%84%80%E1%85%A8%E1%84%92%E1%85%AC%E1%86%A8-%E1%84%89%E1%85%AE%E1%84%85%E1%85%B5%E1%86%B8/&title=1일차 개발 및 운영 계획 수립" target="_blank" rel="noopener"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=1일차 개발 및 운영 계획 수립&body=Check out this article: https://urangurang.github.io/1%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-%E1%84%80%E1%85%A2%E1%84%87%E1%85%A1%E1%86%AF-%E1%84%86%E1%85%B5%E1%86%BE-%E1%84%8B%E1%85%AE%E1%86%AB%E1%84%8B%E1%85%A7%E1%86%BC-%E1%84%80%E1%85%A8%E1%84%92%E1%85%AC%E1%86%A8-%E1%84%89%E1%85%AE%E1%84%85%E1%85%B5%E1%86%B8/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        1일차 개발 및 운영 계획 수립
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">urangurang</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2016-01-03T15:00:00.000Z" itemprop="datePublished">2016-01-04</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-caret-down"></i>
+        <a class="category-link" href="/categories/project/">project</a>, <a class="category-link" href="/categories/project/getflags/">getflags</a>
+    </div>
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>코리안가이드(가칭) 개발에 관한 계획을 세우려 한다. 지금까지는 생각나는대로 기능구현을 해왔는데, 현재 완성된 결과물을 보니 필요한 기능들이 빠져있고, 있어야할 기능이 없어 상당히 완성도가 떨어진다고 느꼈다. 앞으로는 각 페이지에 들어갈 기능을 명시하고, 계획에 맞춰 개발을 진행해보려 한다.</p>
+<p>현재 구현 상황 및&nbsp;필요한 기능 목록 (페이지로 구분)</p>
+<ol>
+<li><p>메인페이지</p>
+</li>
+<li><p>회원가입 및 로그인 페이지</p>
+</li>
+<li><p>가이드 찾기 페이지</p>
+</li>
+<li><p>가이드 등록 페이지</p>
+</li>
+<li><p>마이페이지</p>
+</li>
+</ol>
+<p>| </p>
+<p>&nbsp;페이지</p>
+<p> | </p>
+<p>현재 구현 상황&nbsp;</p>
+<p> | </p>
+<p>앞으로 추가될 기능</p>
+<p> |<br>| </p>
+<p>&nbsp;메인</p>
+<p> | </p>
+<ol>
+<li>구글맵에 현 시각에 이용가능한 가이드 마커 표시</li>
+</ol>
+<p>(구글맵이 켜지는 것 같다는 피드백, 바로 맵 나오지 않게 바꾸는 방향으로 수정)</p>
+<p>&nbsp;[##_1C|cfile6.uf.21168336568A2612149EB7.png|width=”320” height=”186” filename=”스크린샷 2016-01-04 오후 4.57.42.png” filemime=”image/jpeg” style=”font-size: 12px; line-height: 1.5; text-align: center;”|_##]</p>
+<ol start="2">
+<li><p>검색창 HTML 구현</p>
+</li>
+<li><p>최근 가입한 회원 카드형식 표시</p>
+</li>
+</ol>
+<p>(소셜계정, 일반 계정 구분 안됨, 가이드인지 그냥 회원인지 구분 안됨)</p>
+<p> | </p>
+<ol>
+<li>검색 창 (가고싶은 곳, 갈 날짜 입력)</li>
+</ol>
+<p>&nbsp; - 검색시 가이드 찾기 페이지로 넘어 가도록 입력 파라미터 유지한채&nbsp;</p>
+<p>&nbsp; &nbsp; &nbsp;검색결과 반영하도록</p>
+<ol start="2">
+<li>검색 창 아래에 최근에 가입한 가이드 카드형식으로 노출</li>
+</ol>
+<p>&nbsp;- 소셜, 일반 계정 구분할 필요(Facebook 로고 삽입)</p>
+<p>&nbsp;- 가이드인지 외국인인지 구분할 필요 (이것도 로고 삽입?)</p>
+<ol start="3">
+<li>이용방법 및 각 관광지 소개 느낌 하단에 구현</li>
+</ol>
+<p>[##_1C|cfile24.uf.215F354F568A24BB0AE863.png|width=”320” height=”268” filename=”스크린샷 2016-01-04 오후 4.51.51.png” filemime=”image/jpeg” style=”line-height: 1.5;”|_##]</p>
+<p>(Air b&amp;b참고)</p>
+<ol start="4">
+<li>Footer 구현&nbsp;</li>
+</ol>
+<p>&nbsp;- SNS 연결 및 연락처 등 기재</p>
+<p> |<br>| </p>
+<p>&nbsp;회원가입</p>
+<p>로그인</p>
+<p> | </p>
+<p>&nbsp;1. 회원가입</p>
+<p>&nbsp;- 일반가입, 페이스북 가입 두 가지로 구현</p>
+<p>&nbsp;- 일반 가입 시 이메일, 이름, 비밀번호, 성별 입력 받음</p>
+<ol start="2">
+<li>로그인</li>
+</ol>
+<p>&nbsp;- 일반 계정 로그인, 페이스북 로그인</p>
+<p> | </p>
+<ol>
+<li>회원가입</li>
+</ol>
+<p>&nbsp;- 입력 내용 에러 메세지 나오도록 추가</p>
+<p>&nbsp; (아이디 중복, 비밀번호8자리 이상 영문 포함, 성별 미입력, 이메일 중복)&nbsp;</p>
+<ol start="2">
+<li>로그인</li>
+</ol>
+<p>&nbsp;- 페이스북 로그인 버튼에 페북 로고 삽입</p>
+<p> |<br>| </p>
+<p>&nbsp;가이드 찾기</p>
+<p> | </p>
+<ol>
+<li><p>거의 구현안됨.</p>
+<p>| </p>
+</li>
+<li><p>노마드리스트(<a href="https://nomadlist.com/" target="_blank" rel="noopener">https://nomadlist.com/</a>) 참고할 예정&nbsp;</p>
+</li>
+</ol>
+<p>&nbsp;- 필터 부분, Ajax 구현 필터 내용 실시간 반영, 하단에 스크롤 내려가면 추가되는 방식으로 구현 예정</p>
+<p>[##_1C|cfile10.uf.24699141568A46E81BB498.png|width=”320” height=”103” filename=”스크린샷 2016-01-04 오후 7.17.34.png” filemime=”image/jpeg”|_##]</p>
+<p>&nbsp;- 가이드 카드 형식 참고, 마우스 오버시 사진 블러처리 되면서 가능시간 지역 등 알 수 있도록 그리고 클릭하면 해당 가이드 정보로 넘어가거나 연락할 수 있는 방법 나오도록. 웹사이트 내 메시징 기능 또는 채팅 기능 추가해야함.(JIVER)</p>
+<p>[##_1C|cfile21.uf.2761BD46568A481D0A45EC.png|width=”320” height=”106” filename=”스크린샷 2016-01-04 오후 7.22.51.png” filemime=”image/jpeg”|_##]</p>
+<p> |<br>| </p>
+<p>&nbsp;가이드 등록</p>
+<p> | </p>
+<p>&nbsp;1. 가이드 입력 폼</p>
+<p>&nbsp;- 중국어, 일본어, 한국어, 영어 대상으로 5점척도 구현(향후 수정 필요)</p>
+<p>&nbsp;- 월~일요일까지 요일별 시작시간 끝시간 정할 수 있는 폼, 해당 요일 가능 지역 구글맵 기반 자동완성</p>
+<p>[##_1C|cfile6.uf.245B1936568A4A6318AD16.png|width=”320” height=”148” filename=”스크린샷 2016-01-04 오후 7.31.08.png” filemime=”image/jpeg”|_##]</p>
+<p> | </p>
+<p>&nbsp;1. 설명이 필요해 보임. 서비스를 만든 본인인 나는 이해가 잘 가는데, 실제 사용자 입장에서 어떻게 받아들일지 모르겠다. 친구들 대상으로 테스트 해보았는데, 친구들이 괜찮다고 어렵지 않다고 말은 했지만 실제로 그런지 잘 모르겠다.&nbsp;</p>
+<p>좀 더 친절한 설명이 필요할듯 그리고 월요일부터 일요일까지 하나 하나 입력하는게 상당히 귀찮아 보인다. 해결해야할 문제 중 하나</p>
+<ol start="2">
+<li>가이드 정보를 좀 더 자세히 할 필요가 있어보인다.&nbsp;</li>
+</ol>
+<p>&nbsp;- 필수 정보와 추가 정보가 필요한 상황</p>
+<p>&nbsp;- 필수 정보 : 언어, 시간, 지역, 성별(회원가입시 입력받음)</p>
+<p>&nbsp;- 추가 정보 : 취미, 관심 국가, 가능한 외부활동 및 차량 소유여부(?) 등 다양한 정보 입력 받을 수 있으면 나중에 필터링 할 때 좋을 것 같다.</p>
+<p> |<br>| </p>
+<p>마이페이지</p>
+<p> | </p>
+<p>&nbsp;1. 자기가 입력했던 정보 가져오기</p>
+<p>&nbsp;- 언어정보</p>
+<p>&nbsp;- 요일, 시간, 위치 정보 -> 지도에 마커 표시&nbsp;</p>
+<p>[##_1C|cfile21.uf.262ECF48568A4E7712D431.png|width=”320” height=”178” filename=”스크린샷 2016-01-04 오후 7.49.24.png” filemime=”image/jpeg”|_##]</p>
+<p> | </p>
+<ol>
+<li>자기 정보 표시 부분에서 수정하거나 추가할 내용</li>
+</ol>
+<p>&nbsp;- 언어 레벨 바로 수정할 수 있도록</p>
+<p>&nbsp;- 나중에 입력 받은 정보 더 많아질텐데 어떻게 나오게 할지 UI 바꿔야할 듯</p>
+<p>&nbsp;- 요일별 활동 가능 시간도 여기서 수정 가능하게 하면 좋을 듯</p>
+<ol start="2">
+<li>본인이 만났던 사람들 목록 나오도록</li>
+</ol>
+<p>&nbsp;- 카드형식으로 할 예정</p>
+<p>&nbsp;- 추후 연락 및 지속적 교류가 됐으면 좋겠다?</p>
+<ol start="3">
+<li>추가하면 좋을 내용</li>
+</ol>
+<p>&nbsp;- 포인트, 경험치, 레벨, 엠블럼, 뱃지 등 다양한 인센티브 내용 볼 수 있도록</p>
+<p>&nbsp;- 왓챠에서 자기가 본 영화들 분석하듯 만났던 사람들, 연령 성별 국가 등 정보 모아서 보여주는 것도 재미있을 듯</p>
+<p>&nbsp;</p>
+<p> |</p>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Archive</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://urangurang.github.io/1%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-%E1%84%80%E1%85%A2%E1%84%87%E1%85%A1%E1%86%AF-%E1%84%86%E1%85%B5%E1%86%BE-%E1%84%8B%E1%85%AE%E1%86%AB%E1%84%8B%E1%85%A7%E1%86%BC-%E1%84%80%E1%85%A8%E1%84%92%E1%85%AC%E1%86%A8-%E1%84%89%E1%85%AE%E1%84%85%E1%85%B5%E1%86%B8/" target="_blank" rel="noopener"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://urangurang.github.io/1%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-%E1%84%80%E1%85%A2%E1%84%87%E1%85%A1%E1%86%AF-%E1%84%86%E1%85%B5%E1%86%BE-%E1%84%8B%E1%85%AE%E1%86%AB%E1%84%8B%E1%85%A7%E1%86%BC-%E1%84%80%E1%85%A8%E1%84%92%E1%85%AC%E1%86%A8-%E1%84%89%E1%85%AE%E1%84%85%E1%85%B5%E1%86%B8/&text=1일차 개발 및 운영 계획 수립" target="_blank" rel="noopener"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://urangurang.github.io/1%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-%E1%84%80%E1%85%A2%E1%84%87%E1%85%A1%E1%86%AF-%E1%84%86%E1%85%B5%E1%86%BE-%E1%84%8B%E1%85%AE%E1%86%AB%E1%84%8B%E1%85%A7%E1%86%BC-%E1%84%80%E1%85%A8%E1%84%92%E1%85%AC%E1%86%A8-%E1%84%89%E1%85%AE%E1%84%85%E1%85%B5%E1%86%B8/&title=1일차 개발 및 운영 계획 수립" target="_blank" rel="noopener"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=1일차 개발 및 운영 계획 수립&body=Check out this article: https://urangurang.github.io/1%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%A1-%E1%84%80%E1%85%A2%E1%84%87%E1%85%A1%E1%86%AF-%E1%84%86%E1%85%B5%E1%86%BE-%E1%84%8B%E1%85%AE%E1%86%AB%E1%84%8B%E1%85%A7%E1%86%BC-%E1%84%80%E1%85%A8%E1%84%92%E1%85%AC%E1%86%A8-%E1%84%89%E1%85%AE%E1%84%85%E1%85%B5%E1%86%B8/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2020 urangurang
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Archive</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-158081532-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+
