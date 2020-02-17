@@ -2,16 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://urangurang.github.io/code-reading-json-encoder/</loc>
+    <loc>https://urangurang.github.io/flask-assets-1/</loc>
     
-    <lastmod>2020-02-17T11:41:09.000Z</lastmod>
+    <lastmod>2020-02-17T11:41:56.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://urangurang.github.io/japan-industry-fintech/</loc>
+    <loc>https://urangurang.github.io/flask-assets-2/</loc>
     
-    <lastmod>2020-02-15T14:36:41.000Z</lastmod>
+    <lastmod>2020-02-17T11:41:46.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://urangurang.github.io/code-reading-json-encoder/</loc>
+    
+    <lastmod>2020-02-17T11:41:09.000Z</lastmod>
     
   </url>
   
@@ -40,20 +47,6 @@
     <loc>https://urangurang.github.io/job-seeking-in-japan/</loc>
     
     <lastmod>2020-02-13T13:22:00.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://urangurang.github.io/flask-assets-1/</loc>
-    
-    <lastmod>2020-02-12T15:25:50.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://urangurang.github.io/flask-assets-2/</loc>
-    
-    <lastmod>2020-02-12T15:25:01.000Z</lastmod>
     
   </url>
   
@@ -149,14 +142,14 @@
   </url>
   
   <url>
-    <loc>https://urangurang.github.io/getflags-03/</loc>
+    <loc>https://urangurang.github.io/getflags-02/</loc>
     
     <lastmod>2020-02-12T15:14:05.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://urangurang.github.io/getflags-02/</loc>
+    <loc>https://urangurang.github.io/getflags-03/</loc>
     
     <lastmod>2020-02-12T15:14:05.000Z</lastmod>
     
@@ -261,14 +254,14 @@
   </url>
   
   <url>
-    <loc>https://urangurang.github.io/code-reading-json-decoder-scanner/</loc>
+    <loc>https://urangurang.github.io/code-reading-json-tool/</loc>
     
     <lastmod>2020-02-10T14:45:58.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://urangurang.github.io/code-reading-json-tool/</loc>
+    <loc>https://urangurang.github.io/code-reading-json-decoder-scanner/</loc>
     
     <lastmod>2020-02-10T14:45:58.000Z</lastmod>
     
