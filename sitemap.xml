@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://urangurang.github.io/parasite-bongjoonho/</loc>
+    
+    <lastmod>2020-02-19T15:00:56.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://urangurang.github.io/flask-assets-1/</loc>
     
     <lastmod>2020-02-17T11:41:56.000Z</lastmod>
@@ -142,14 +149,14 @@
   </url>
   
   <url>
-    <loc>https://urangurang.github.io/getflags-02/</loc>
+    <loc>https://urangurang.github.io/getflags-03/</loc>
     
     <lastmod>2020-02-12T15:14:05.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://urangurang.github.io/getflags-03/</loc>
+    <loc>https://urangurang.github.io/getflags-02/</loc>
     
     <lastmod>2020-02-12T15:14:05.000Z</lastmod>
     
@@ -254,14 +261,14 @@
   </url>
   
   <url>
-    <loc>https://urangurang.github.io/code-reading-json-tool/</loc>
+    <loc>https://urangurang.github.io/code-reading-json-decoder-scanner/</loc>
     
     <lastmod>2020-02-10T14:45:58.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://urangurang.github.io/code-reading-json-decoder-scanner/</loc>
+    <loc>https://urangurang.github.io/code-reading-json-tool/</loc>
     
     <lastmod>2020-02-10T14:45:58.000Z</lastmod>
     
